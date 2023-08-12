@@ -24,7 +24,7 @@ export const getGame = async (id: string) => {
 
 export const getGameScreenShots = async (id: string) => {
   const key = process.env.API_KEY;
-  const response = await fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=${key}&page=1&page_size=6`);
+  const response = await fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=${key}&page=1&page_size=8`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch data');
