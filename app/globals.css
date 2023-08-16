@@ -4,7 +4,7 @@
 
 @layer components {
   .navigation {
-    @apply sticky left-0 top-0 flex h-screen w-fit flex-col items-start overflow-auto bg-transparent text-white pt-28 pb-12 px-12;
+    @apply sticky left-0 top-20 flex h-screen w-fit flex-col items-start overflow-auto bg-transparent text-white pb-20 px-12;
   }
 
   .header {
@@ -56,5 +56,10 @@
 
 .anticon-menu {
   color: #ef4444 !important;
+}
+
+.ant-segmented-item-selected {
+  background-color: #ef4444 !important;
+  color: white !important;
 }
 

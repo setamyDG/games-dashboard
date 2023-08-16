@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { ModeToggle } from './ThemeToggle';
 import {
   Menubar,
@@ -17,6 +18,7 @@ import {
 } from '@/components/ui/menubar';
 
 const Header = (): JSX.Element => {
+  const [isTop, setIsTop] = useState(true);
   const { data: session } = useSession();
   const { theme } = useTheme();
   const pathname = usePathname();
@@ -28,8 +30,19 @@ const Header = (): JSX.Element => {
       return false;
     }
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 120) {
+        setIsTop(false);
+      } else {
+        setIsTop(true);
+      }
+    });
+  });
+
   return (
-    <header className='header' style={{ zIndex: 100 }}>
+    <header className={`${!isTop ? 'backdrop-blur-md transition-all header' : 'header'}`} style={{ zIndex: 125 }}>
       <Image src='/next-white.svg' width={120} height={120} alt='logo' />
       {session?.user && (
         <div className='flex items-center gap-3'>

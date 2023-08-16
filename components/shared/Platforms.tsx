@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { Fragment } from 'react';
-import { availablePlatforms, mappedAvailablePlatformsToImages } from '../Home/const/platforms';
+import { availablePlatforms, mappedAvailablePlatformsToImages, mappedNamesToPlatforms } from '../Home/const/platforms';
 import { GamePlatforms } from '../Home/GameCard/GameCard.types';
 
 type Props = {
@@ -26,7 +26,9 @@ const Platforms = ({ platforms }: Props) => {
             width={20}
             height={20}
           />
-          <p className='text-white text-xs hidden xl:block'>{platform?.platform?.name}</p>
+          <p className='text-white text-xs hidden xl:block'>
+            {mappedNamesToPlatforms[platform?.platform?.name as keyof typeof mappedNamesToPlatforms]}
+          </p>
         </Fragment>
       ))}
     </>

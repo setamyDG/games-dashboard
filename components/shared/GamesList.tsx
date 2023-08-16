@@ -1,11 +1,10 @@
 'use client';
+
 import { Pagination } from 'antd';
 import { useState } from 'react';
-import { orderOptions, platformOptions } from '../const/selectOptions';
-import GameCard from '../GameCard/GameCard';
-import { useGetGames } from '../hooks/useGetGames';
-import { Props } from './GamesList.types';
-import { Input } from '@/components/ui/input';
+import { orderOptions, platformOptions } from '../Home/const/selectOptions';
+import GameCard from '../Home/GameCard/GameCard';
+import { Input } from '../ui/input';
 import {
   Select,
   SelectContent,
@@ -15,46 +14,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { GamesResult } from '@/customTypes/general';
+import { useGetGames } from '@/hooks/useGetGames';
 import { useListQuery } from '@/hooks/useListQuery';
 import { usePaginationHelpers } from '@/hooks/usePaginationHelper';
 
-const GamesList = ({ games }: Props): JSX.Element => {
+type Props = {
+  games: GamesResult;
+  getFunction: () => Promise<GamesResult>;
+  isSearch?: boolean;
+  columns: string;
+  isCalendar?: boolean;
+};
+
+const GamesList = ({ games, getFunction, isSearch, columns }: Props): JSX.Element => {
   const [searchValue, setSearchValue] = useState('');
   const { listQuery, setListQuery } = useListQuery();
-  const { data, isFetching } = useGetGames(listQuery, games);
-
-  const { handleOnChangeSearch, handleOnSearch, onChangePagination } = usePaginationHelpers(
-    setListQuery,
-    setSearchValue,
-    searchValue,
-  );
+  const { data, isFetching } = useGetGames(listQuery, games, getFunction);
+  const { handleOnChangeSearch, handleOnSearch, onChangePagination, onChangeOrder, onChangePlatform } =
+    usePaginationHelpers(setListQuery, setSearchValue, searchValue);
 
   if (isFetching) {
     return <div>Loading...</div>;
   }
-
-  const onChangeOrder = (value: string): void => {
-    setListQuery((prev) => ({
-      ...prev,
-      current: 1,
-      orderBy: value,
-    }));
-  };
-
-  const onChangePlatform = (value: string): void => {
-    setListQuery((prev) => ({
-      ...prev,
-      current: 1,
-      platforms: value,
-    }));
-  };
 
   return (
     <>
       {data && data?.results.length > 0 ? (
         <>
           <div className='mt-4 flex gap-3 items-center'>
-            <Input placeholder='Search' value={searchValue} onSearch={handleOnSearch} onChange={handleOnChangeSearch} />
+            {isSearch && (
+              <Input
+                placeholder='Search'
+                value={searchValue}
+                onSearch={handleOnSearch}
+                onChange={handleOnChangeSearch}
+              />
+            )}
             <Select value={listQuery.orderBy} onValueChange={onChangeOrder}>
               <SelectTrigger>
                 <SelectValue placeholder='Order By' />
@@ -86,14 +82,14 @@ const GamesList = ({ games }: Props): JSX.Element => {
               </SelectContent>
             </Select>
           </div>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:aut-fit gap-8 py-4'>
+          <div className={`grid grid-cols-1 md:grid-cols-${columns} lg:aut-fit gap-8 py-4`}>
             {data?.results.map((game) => <GameCard key={game.id} game={game} />)}
           </div>
           <Pagination
             defaultCurrent={1}
             current={listQuery.current}
             onChange={onChangePagination}
-            total={data?.count}
+            total={games?.count}
             showSizeChanger={false}
             className='flex justify-center items-center mt-12'
           />

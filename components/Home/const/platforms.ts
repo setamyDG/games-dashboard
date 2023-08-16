@@ -5,3 +5,10 @@ export const mappedAvailablePlatformsToImages = {
   'PlayStation 4': '/ps.svg',
   'Xbox One': '/xbox.svg',
 };
+
+export const mappedNamesToPlatforms = {
+  PC: 'PC',
+  'PlayStation 5': 'PS5',
+  'PlayStation 4': 'PS4',
+  'Xbox One': 'Xbox One',
+};

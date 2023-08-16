@@ -25,7 +25,10 @@ const Navigation = (): JSX.Element => {
             {children.map((link) => (
               <Link
                 key={link.name}
-                href={link.path}
+                href={{
+                  pathname: link.path,
+                  query: link.query,
+                }}
                 className={`${checkIActive(link.path) && 'text-red-500'} flex items-center hover:text-red-500`}
               >
                 {link.isPng ? (

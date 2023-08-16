@@ -5,6 +5,8 @@ type UsePaginationHelpers = {
   handleOnChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void;
   handleOnSearch: () => void;
   onChangePagination: (page: number) => void;
+  onChangeOrder: (value: string) => void;
+  onChangePlatform: (value: string) => void;
 };
 
 export const usePaginationHelpers = (
@@ -31,9 +33,27 @@ export const usePaginationHelpers = (
     }));
   };
 
+  const onChangeOrder = (value: string): void => {
+    setListQuery((prev) => ({
+      ...prev,
+      current: 1,
+      orderBy: value,
+    }));
+  };
+
+  const onChangePlatform = (value: string): void => {
+    setListQuery((prev) => ({
+      ...prev,
+      current: 1,
+      platforms: value,
+    }));
+  };
+
   return {
     handleOnChangeSearch,
     handleOnSearch,
     onChangePagination,
+    onChangeOrder,
+    onChangePlatform,
   };
 };

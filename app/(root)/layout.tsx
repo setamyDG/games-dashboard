@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${tektur.className} bg-neutral-900`}>
         <ReactQueryProvider>
           <NextAuthProvider>
-            <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
               <Header />
               <main className='flex'>
                 <Navigation />
