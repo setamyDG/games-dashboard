@@ -1,11 +1,11 @@
 export const orderOptions = [
   { value: '', label: 'None' },
-  { value: '-name', label: 'Name' },
-  { value: '-rating', label: 'Rating' },
-  { value: '-released', label: 'Released' },
-  { value: '-added', label: 'Added' },
-  { value: '-created', label: 'Created' },
-  { value: '-updated', label: 'Updated' },
+  { value: 'name', label: 'Name' },
+  { value: 'rating', label: 'Rating' },
+  { value: 'released', label: 'Released' },
+  { value: 'added', label: 'Added' },
+  { value: 'created', label: 'Created' },
+  { value: 'updated', label: 'Updated' },
 ];
 
 export const platformOptions = [

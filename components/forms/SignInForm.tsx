@@ -81,7 +81,7 @@ const SignInForm = (): JSX.Element => {
               </FormItem>
             )}
           />
-          <div className='flex justify-end items-center text-sm'>
+          <div className='flex justify-end items-center text-xs'>
             <p className='text-gray-400'>Dont have account ? </p>
             <Link href='/sign-up' className='font-semibold text-red-500 ml-2'>
               Create Account

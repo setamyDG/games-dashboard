@@ -49,7 +49,13 @@ const Header = (): JSX.Element => {
           <p className='text-white ml-2 hidden md:block'>
             Hello - <span className='text-red-500'>{session.user.name}!</span>
           </p>
-          <Image src={session.user.image as string} width={32} height={32} alt='user' className='rounded-full' />
+          <Image
+            src={(session.user.image as string) || '/game.svg'}
+            width={32}
+            height={32}
+            alt='user'
+            className='rounded-full'
+          />
           <LogoutOutlined className='ml-2 text-red-500 cursor-pointer' onClick={() => signOut()} />
           <div className='ml-2'>
             <ModeToggle />

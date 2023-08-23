@@ -7,6 +7,9 @@ import { links } from '@/utils/links';
 const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
+  const currentMonth = new Date().toLocaleString('en-GB', { month: 'long' });
+  const navigationLinks = links(currentMonth);
+
   const checkIActive = (path: string) => {
     if (pathname === path) {
       return true;
@@ -19,7 +22,7 @@ const Navigation = (): JSX.Element => {
     <nav className='navigation' style={{ zIndex: 100 }}>
       {/* DESKTOP */}
       <div className='hidden xl:block'>
-        {links.map(({ title, children }) => (
+        {navigationLinks.map(({ title, children }) => (
           <div className='flex gap-3 flex-col my-4' key={title}>
             <p className='font-semibold text-lg text-red-500'>{title}</p>
             {children.map((link) => (

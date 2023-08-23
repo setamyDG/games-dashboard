@@ -82,7 +82,13 @@ const GamesList = ({ games, getFunction, isSearch, columns }: Props): JSX.Elemen
               </SelectContent>
             </Select>
           </div>
-          <div className={`grid grid-cols-1 md:grid-cols-${columns} lg:aut-fit gap-8 py-4`}>
+          <div
+            className={`${
+              columns === '2'
+                ? `grid grid-cols-1 md:grid-cols-2 lg:aut-fit gap-8 py-4`
+                : `grid grid-cols-1 md:grid-cols-${columns} lg:aut-fit gap-8 py-4`
+            }`}
+          >
             {data?.results.map((game) => <GameCard key={game.id} game={game} />)}
           </div>
           <Pagination

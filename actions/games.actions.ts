@@ -1,9 +1,8 @@
 'use server';
 
-const defaultQueryParams = `&page=1`;
 export const getGames = async (queryParams?: string) => {
   const key = process.env.API_KEY;
-  const response = await fetch(`https://api.rawg.io/api/games?key=${key}${queryParams || defaultQueryParams}`);
+  const response = await fetch(`https://api.rawg.io/api/games?key=${key}&page_size=20${queryParams}`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch data');
@@ -56,7 +55,7 @@ export const getGameAchievements = async (id: string) => {
   return response.json();
 };
 
-export const getLast30daysGames = async (queryParams?: string) => {
+export const getLast30daysGames = async (queryParams: string) => {
   const key = process.env.API_KEY;
 
   const currentDate = new Date();
@@ -68,9 +67,7 @@ export const getLast30daysGames = async (queryParams?: string) => {
   const thirtyDaysAgoFormatted = thirtyDaysAgo.toISOString().split('T')[0];
 
   const response = await fetch(
-    `https://api.rawg.io/api/games?key=${key}${
-      queryParams || defaultQueryParams
-    }&dates=${thirtyDaysAgoFormatted},${todayFormatted}`,
+    `https://api.rawg.io/api/games?key=${key}${queryParams}&dates=${thirtyDaysAgoFormatted},${todayFormatted}`,
   );
 
   if (!response.ok) {
@@ -80,7 +77,7 @@ export const getLast30daysGames = async (queryParams?: string) => {
   return response.json();
 };
 
-export const getThisWeekGames = async (queryParams?: string) => {
+export const getThisWeekGames = async (queryParams: string) => {
   const key = process.env.API_KEY;
   const currentDate = new Date();
 
@@ -91,9 +88,7 @@ export const getThisWeekGames = async (queryParams?: string) => {
   const sevenDaysAgoFormatted = sevenDaysAgo.toISOString().split('T')[0];
 
   const response = await fetch(
-    `https://api.rawg.io/api/games?key=${key}${
-      queryParams || defaultQueryParams
-    }&dates=${sevenDaysAgoFormatted},${todayFormatted}`,
+    `https://api.rawg.io/api/games?key=${key}${queryParams}&dates=${sevenDaysAgoFormatted},${todayFormatted}`,
   );
 
   if (!response.ok) {
@@ -103,7 +98,7 @@ export const getThisWeekGames = async (queryParams?: string) => {
   return response.json();
 };
 
-export const getNextWeekGames = async (queryParams?: string) => {
+export const getNextWeekGames = async (queryParams: string) => {
   const key = process.env.API_KEY;
 
   const currentDate = new Date();
@@ -115,10 +110,20 @@ export const getNextWeekGames = async (queryParams?: string) => {
   const nextWeekFormatted = nextWeek.toISOString().split('T')[0];
 
   const response = await fetch(
-    `https://api.rawg.io/api/games?key=${key}${
-      queryParams || defaultQueryParams
-    }&dates=${todayFormatted},${nextWeekFormatted}`,
+    `https://api.rawg.io/api/games?key=${key}${queryParams}&dates=${todayFormatted},${nextWeekFormatted}`,
   );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return response.json();
+};
+
+export const getReleaseMothsCalendarGames = async (queryParams: string) => {
+  const key = process.env.API_KEY;
+
+  const response = await fetch(`https://api.rawg.io/api/games?key=${key}&${queryParams}`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch data');

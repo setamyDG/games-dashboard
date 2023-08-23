@@ -1,10 +1,20 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { getThisWeekGames } from '@/actions/games.actions';
-import GamesList from '@/components/shared/GamesList';
+import NewGamesList from '@/components/shared/NewGamesList';
+import { generateUrlFromQuery } from '@/utils/methots';
 
-const ThisWeek = async () => {
-  const games = await getThisWeekGames();
+type Props = {
+  searchParams: {
+    ordering?: string;
+    platforms?: string;
+    page?: string;
+  };
+};
+
+const ThisWeek = async ({ searchParams }: Props) => {
+  const getUrl = generateUrlFromQuery(searchParams);
+  const games = await getThisWeekGames(getUrl);
   const session = await getServerSession();
 
   if (!session) {
@@ -14,7 +24,7 @@ const ThisWeek = async () => {
   return (
     <>
       <h1 className='headingText'>This week</h1>
-      <GamesList games={games} columns={3} getFunction={getThisWeekGames} />
+      <NewGamesList games={games} columns='2' isSearch />
     </>
   );
 };
