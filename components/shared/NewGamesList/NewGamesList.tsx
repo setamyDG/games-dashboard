@@ -3,9 +3,10 @@
 import { Pagination } from 'antd';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
-import { orderOptions, platformOptions } from '../Home/const/selectOptions';
-import GameCard from '../Home/GameCard/GameCard';
-import { Input } from '../ui/input';
+import { orderOptions, platformOptions } from './const/selectOptions';
+import { Props } from './NewGamesList.types';
+import GameCard from '@/components/Game/GameCard/GameCard';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -15,16 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { GamesResult } from '@/customTypes/general';
 
-type Props = {
-  games: GamesResult;
-  columns: string;
-  isSearch?: boolean;
-  withoutFilters?: boolean;
-};
-
-const NewGamesList = ({ games, columns, isSearch, withoutFilters }: Props): JSX.Element => {
+const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatforms }: Props): JSX.Element => {
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
   const [ordering, setOrdering] = useState(searchParams.get('ordering') || '');
@@ -78,8 +71,9 @@ const NewGamesList = ({ games, columns, isSearch, withoutFilters }: Props): JSX.
                 onChange={handleOnChangeSearch}
               />
             )}
-            {!withoutFilters && (
-              <>
+
+            <>
+              {!withoutOrdering && (
                 <Select value={ordering} onValueChange={onChangeOrdering}>
                   <SelectTrigger>
                     <SelectValue placeholder='Order By' />
@@ -95,6 +89,8 @@ const NewGamesList = ({ games, columns, isSearch, withoutFilters }: Props): JSX.
                     </SelectGroup>
                   </SelectContent>
                 </Select>
+              )}
+              {!withoutPlatforms && (
                 <Select value={platforms} onValueChange={onChangePlatform}>
                   <SelectTrigger>
                     <SelectValue placeholder='Platforms' />
@@ -110,8 +106,8 @@ const NewGamesList = ({ games, columns, isSearch, withoutFilters }: Props): JSX.
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-              </>
-            )}
+              )}
+            </>
           </div>
           <div
             className={`${

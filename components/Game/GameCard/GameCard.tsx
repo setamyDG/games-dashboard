@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Platforms from '../Platforms/Platforms';
 import { Props } from './GameCard.types';
-import Platforms from '@/components/shared/Platforms';
 
 const GameCard = ({ game, isSeries }: Props): JSX.Element => (
   <div className='flex flex-col mt-4 hover:scale-105 transition-all overflow-hidden' key={game?.name as string}>

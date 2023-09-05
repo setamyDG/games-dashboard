@@ -3,11 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { getGame, getGameScreenShots, getGameSeries, getGameAchievements } from '@/actions/games.actions';
+import AchievementCard from '@/components/Game/AchievementCard/AchievementCard';
 import Background from '@/components/Game/Background';
+import GameCard from '@/components/Game/GameCard/GameCard';
+import Platforms from '@/components/Game/Platforms/Platforms';
 import Screenshots from '@/components/Game/Screenshots';
-import AchievementCard from '@/components/Home/AchievementCard/AchievementCard';
-import GameCard from '@/components/Home/GameCard/GameCard';
-import Platforms from '@/components/shared/Platforms';
 import { Button } from '@/components/ui/button';
 import 'react-photo-view/dist/react-photo-view.css';
 

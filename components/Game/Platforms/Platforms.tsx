@@ -1,13 +1,23 @@
 import Image from 'next/image';
 import React, { Fragment } from 'react';
-import { availablePlatforms, mappedAvailablePlatformsToImages, mappedNamesToPlatforms } from '../Home/const/platforms';
-import { GamePlatforms } from '../Home/GameCard/GameCard.types';
+import { Props } from './Platforms.types';
 
-type Props = {
-  platforms: GamePlatforms;
+const availablePlatforms = ['PC', 'PlayStation 5', 'PlayStation 4', 'Xbox One'];
+const mappedAvailablePlatformsToImages = {
+  PC: '/pc.svg',
+  'PlayStation 5': '/ps.svg',
+  'PlayStation 4': '/ps.svg',
+  'Xbox One': '/xbox.svg',
 };
 
-const Platforms = ({ platforms }: Props) => {
+const mappedNamesToPlatforms = {
+  PC: 'PC',
+  'PlayStation 5': 'PS5',
+  'PlayStation 4': 'PS4',
+  'Xbox One': 'Xbox One',
+};
+
+const Platforms = ({ platforms }: Props): JSX.Element => {
   const filteredPlatforms = platforms
     ?.filter((platform) => availablePlatforms.includes(platform?.platform?.name as string))
     .sort((a, b) => String(a?.platform?.name).localeCompare(String(b?.platform?.name)));

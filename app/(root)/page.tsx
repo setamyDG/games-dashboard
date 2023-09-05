@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { getGames } from '@/actions/games.actions';
-import NewGamesList from '@/components/shared/NewGamesList';
+import NewGamesList from '@/components/shared/NewGamesList/NewGamesList';
 import { generateUrlFromQuery } from '@/utils/methots';
 
 type Props = {

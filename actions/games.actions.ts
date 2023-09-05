@@ -131,3 +131,51 @@ export const getReleaseMothsCalendarGames = async (queryParams: string) => {
 
   return response.json();
 };
+
+export const getBestOfTheYearGames = async (queryParams: string) => {
+  const key = process.env.API_KEY;
+  const beginOfYear = new Date(new Date().getFullYear(), 0, 1);
+  const currentDate = new Date();
+  const todayFormatted = currentDate.toISOString().split('T')[0];
+  const beginOfYearFormatted = beginOfYear.toISOString().split('T')[0];
+
+  const response = await fetch(
+    `https://api.rawg.io/api/games?key=${key}&${queryParams}&dates=${beginOfYearFormatted},${todayFormatted}&ordering=-rating`,
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return response.json();
+};
+
+export const getPopular2022Games = async (queryParams: string) => {
+  const key = process.env.API_KEY;
+  const beginOfYear2022 = new Date(2022, 0, 1);
+  const endOfYear2022 = new Date(2022, 11, 31);
+  const beginOfYearFormatted = beginOfYear2022.toISOString().split('T')[0];
+  const endOfYearFormatted = endOfYear2022.toISOString().split('T')[0];
+
+  const response = await fetch(
+    `https://api.rawg.io/api/games?key=${key}&${queryParams}&dates=${beginOfYearFormatted},${endOfYearFormatted}&ordering=-added`,
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return response.json();
+};
+
+export const getAllTime250Games = async (queryParams: string) => {
+  const key = process.env.API_KEY;
+
+  const response = await fetch(`https://api.rawg.io/api/games?key=${key}&${queryParams}&ordering=-rating`);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return response.json();
+};

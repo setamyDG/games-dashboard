@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getReleaseMothsCalendarGames } from '@/actions/games.actions';
-import NewGamesList from '@/components/shared/NewGamesList';
+import NewGamesList from '@/components/shared/NewGamesList/NewGamesList';
 import { generateUrlFromQuery } from '@/utils/methots';
 
 type Props = {
@@ -24,7 +24,7 @@ const ReleaseCalendar = async ({ searchParams }: Props) => {
     redirect('/sign-in');
   }
 
-  return <NewGamesList games={games} columns='3' withoutFilters />;
+  return <NewGamesList games={games} columns='3' withoutOrdering />;
 };
 
 export default ReleaseCalendar;
