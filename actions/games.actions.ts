@@ -1,6 +1,8 @@
 'use server';
 
-export const getGames = async (queryParams?: string) => {
+import { GamesResult } from '@/customTypes/general';
+
+export const getGames = async (queryParams?: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
   const response = await fetch(`https://api.rawg.io/api/games?key=${key}&page_size=20${queryParams}`);
 
@@ -22,7 +24,7 @@ export const getGame = async (id: string) => {
   return response.json();
 };
 
-export const getGameScreenShots = async (id: string) => {
+export const getGameScreenShots = async (id: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
   const response = await fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=${key}&page=1&page_size=8`);
 
@@ -33,7 +35,7 @@ export const getGameScreenShots = async (id: string) => {
   return response.json();
 };
 
-export const getGameSeries = async (id: string) => {
+export const getGameSeries = async (id: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
   const response = await fetch(`https://api.rawg.io/api/games/${id}/game-series?key=${key}&page=1&page_size=8`);
 
@@ -44,7 +46,7 @@ export const getGameSeries = async (id: string) => {
   return response.json();
 };
 
-export const getGameAchievements = async (id: string) => {
+export const getGameAchievements = async (id: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
   const response = await fetch(`https://api.rawg.io/api/games/${id}/achievements?key=${key}`);
 
@@ -55,7 +57,7 @@ export const getGameAchievements = async (id: string) => {
   return response.json();
 };
 
-export const getLast30daysGames = async (queryParams: string) => {
+export const getLast30daysGames = async (queryParams: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
 
   const currentDate = new Date();
@@ -77,7 +79,7 @@ export const getLast30daysGames = async (queryParams: string) => {
   return response.json();
 };
 
-export const getThisWeekGames = async (queryParams: string) => {
+export const getThisWeekGames = async (queryParams: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
   const currentDate = new Date();
 
@@ -98,7 +100,7 @@ export const getThisWeekGames = async (queryParams: string) => {
   return response.json();
 };
 
-export const getNextWeekGames = async (queryParams: string) => {
+export const getNextWeekGames = async (queryParams: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
 
   const currentDate = new Date();
@@ -120,7 +122,7 @@ export const getNextWeekGames = async (queryParams: string) => {
   return response.json();
 };
 
-export const getReleaseMothsCalendarGames = async (queryParams: string) => {
+export const getReleaseMothsCalendarGames = async (queryParams: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
 
   const response = await fetch(`https://api.rawg.io/api/games?key=${key}&${queryParams}`);
@@ -132,7 +134,7 @@ export const getReleaseMothsCalendarGames = async (queryParams: string) => {
   return response.json();
 };
 
-export const getBestOfTheYearGames = async (queryParams: string) => {
+export const getBestOfTheYearGames = async (queryParams: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
   const beginOfYear = new Date(new Date().getFullYear(), 0, 1);
   const currentDate = new Date();
@@ -150,7 +152,7 @@ export const getBestOfTheYearGames = async (queryParams: string) => {
   return response.json();
 };
 
-export const getPopular2022Games = async (queryParams: string) => {
+export const getPopular2022Games = async (queryParams: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
   const beginOfYear2022 = new Date(2022, 0, 1);
   const endOfYear2022 = new Date(2022, 11, 31);
@@ -168,7 +170,7 @@ export const getPopular2022Games = async (queryParams: string) => {
   return response.json();
 };
 
-export const getAllTime250Games = async (queryParams: string) => {
+export const getAllTime250Games = async (queryParams: string): Promise<GamesResult> => {
   const key = process.env.API_KEY;
 
   const response = await fetch(`https://api.rawg.io/api/games?key=${key}&${queryParams}&ordering=-rating`);

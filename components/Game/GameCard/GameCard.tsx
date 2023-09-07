@@ -4,7 +4,7 @@ import Platforms from '../Platforms/Platforms';
 import { Props } from './GameCard.types';
 
 const GameCard = ({ game, isSeries }: Props): JSX.Element => (
-  <div className='flex flex-col mt-4 hover:scale-105 transition-all overflow-hidden' key={game?.name as string}>
+  <div className='flex flex-col mt-4 hover:scale-105 transition-all overflow-hidden'>
     <Image
       src={game?.background_image || '/game.svg'}
       alt={game?.name as string}

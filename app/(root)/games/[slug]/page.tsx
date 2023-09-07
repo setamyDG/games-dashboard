@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { getGame, getGameScreenShots, getGameSeries, getGameAchievements } from '@/actions/games.actions';
 import AchievementCard from '@/components/Game/AchievementCard/AchievementCard';
-import Background from '@/components/Game/Background';
+import Background from '@/components/Game/Background/Background';
 import GameCard from '@/components/Game/GameCard/GameCard';
 import Platforms from '@/components/Game/Platforms/Platforms';
 import Screenshots from '@/components/Game/Screenshots';
@@ -27,7 +27,7 @@ const GamePage = async ({ params }: Props) => {
 
   return (
     <>
-      <Background src={game.background_image} />
+      <Background src={game.background_image as string} />
       <div className='relative flex-col items-center py-40 justify-center ' style={{ zIndex: 120 }}>
         <div className='flex items-center'>
           <h1 className='text-6xl font-bold '>{game?.name}</h1>
@@ -47,7 +47,7 @@ const GamePage = async ({ params }: Props) => {
             <span># {game?.rating_top}</span>
             <span className='text-red-500 underline underline-offset-2'>TOP 2023</span>
           </div>
-          <Link href={game?.website}>
+          <Link href={game?.website as string}>
             <Button>Official website</Button>
           </Link>
         </div>
