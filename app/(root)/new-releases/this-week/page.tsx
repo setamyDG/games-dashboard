@@ -25,10 +25,10 @@ const ThisWeek = async ({ searchParams }: Props) => {
   return (
     <>
       <div className='flex gap-8 items-center'>
-        <Image alt='homeIcon' src='/fire.svg' width={40} height={40} />
+        <Image alt='fireIconPage' src='/fire.svg' width={30} height={30} />
         <h1 className='headingText'>This week</h1>
       </div>
-      <NewGamesList games={games} columns='2' isSearch />
+      <NewGamesList games={games} isSearch />
     </>
   );
 };

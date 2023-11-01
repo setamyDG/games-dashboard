@@ -35,3 +35,47 @@ export const checkIfUserExists = async (email: string): Promise<boolean> => {
 
   return false;
 };
+
+export const addFavoriteGame = async (email: string, gameId: string): Promise<void> => {
+  try {
+    await connectToDb();
+    await User.updateOne({ email }, { $push: { favorites: gameId } });
+  } catch (error) {
+    console.log('Error adding favorite game: ', error);
+  }
+};
+
+export const removeFavoriteGame = async (email: string, gameId: string): Promise<void> => {
+  try {
+    await connectToDb();
+    await User.updateOne({ email }, { $pull: { favorites: gameId } });
+  } catch (error) {
+    console.log('Error removing favorite game: ', error);
+  }
+};
+
+export const getUser = async (email: string): Promise<void | null> => {
+  try {
+    await connectToDb();
+    const user = await User.findOne({ email });
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log('Error getting user: ', error);
+  }
+};
+
+export const updateBackgroundImage = async (email: string, backgroundImage: string): Promise<void> => {
+  try {
+    await connectToDb();
+    const user = await User.findOne({ email });
+    if (user) {
+      await User.updateOne({ email }, { backgroundImage });
+    }
+  } catch (error) {
+    console.log('Error updating background image: ', error);
+  }
+};

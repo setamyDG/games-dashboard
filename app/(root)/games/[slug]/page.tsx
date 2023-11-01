@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Button } from '@nextui-org/button';
+import { Tooltip } from '@nextui-org/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,16 +8,25 @@ import React from 'react';
 import { getGame, getGameScreenShots, getGameSeries, getGameAchievements } from '@/actions/games.actions';
 import { AchievementCard } from '@/components/Game/AchievementCard/AchievementCard';
 import { Background } from '@/components/Game/Background/Background';
+import { BuyButton } from '@/components/Game/BuyButton/BuyButton';
+import { FavoriteButton } from '@/components/Game/FavoriteButton/FavoriteButton';
 import { GameCard } from '@/components/Game/GameCard/GameCard';
 import { Platforms } from '@/components/Game/Platforms/Platforms';
 import { Screenshots } from '@/components/Game/Screenshots';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+
 import 'react-photo-view/dist/react-photo-view.css';
 
 type Props = {
   params: {
     slug: string;
+  };
+};
+
+export const generateMetadata = async ({ params }: Props) => {
+  return {
+    title: `Game | ${params.slug}`,
+    description: `Game ${params.slug} description`,
   };
 };
 
@@ -31,7 +42,7 @@ const GamePage = async ({ params }: Props) => {
     <>
       <Background src={game.background_image as string} />
       <div className='relative flex-col items-center py-40 justify-center ' style={{ zIndex: 120 }}>
-        <div className='flex items-center'>
+        <div className='flex items-center gap-2'>
           <h1 className='text-6xl font-bold '>{game?.name}</h1>
           <div className='flex items-center justify-center ml-8 rounded-full h-12 w-12 border-2 border-red-500'>
             <span className='text-red-500 font-semibold'>{game?.rating}</span>
@@ -40,7 +51,7 @@ const GamePage = async ({ params }: Props) => {
         <div className='flex gap-4 mt-4 items-center'>
           <Platforms platforms={game?.platforms} />
         </div>
-        <div className='mt-8 flex items-center gap-8'>
+        <div className='mt-8 flex items-center gap-4'>
           <div className='flex flex-col'>
             <span>Release date:</span>
             <span className='text-red-500'>{game?.released}</span>
@@ -49,9 +60,15 @@ const GamePage = async ({ params }: Props) => {
             <span># {game?.rating_top}</span>
             <span className='text-red-500 underline underline-offset-2'>TOP 2023</span>
           </div>
-          <Link href={game?.website as string}>
-            <Button>Official website</Button>
-          </Link>
+          <FavoriteButton />
+          <Tooltip content='Visit official game page' showArrow color='secondary'>
+            <Link href={game?.website as string}>
+              <Button variant='shadow' color='secondary'>
+                Official website
+              </Button>
+            </Link>
+          </Tooltip>
+          <BuyButton slug={`/games/${game?.slug}`} game={game} placement='top' />
         </div>
         <div className='grid grid-cols-1 md:grid-cols-4 lg:aut-fit gap-8 pt-12'>
           <Screenshots screenShots={screenShots} />
@@ -74,8 +91,8 @@ const GamePage = async ({ params }: Props) => {
             </Alert>
           ) : (
             <div key={game.id} className='grid grid-cols-1 md:grid-cols-3 lg:aut-fit gap-4'>
-              {gameSeries.results.map((game: any) => (
-                <GameCard key={game.id} game={game} isSeries />
+              {gameSeries.results.map((game) => (
+                <GameCard key={game.id} game={game} />
               ))}
             </div>
           )}
@@ -93,7 +110,7 @@ const GamePage = async ({ params }: Props) => {
             </Alert>
           ) : (
             <div className='grid grid-cols-1 md:grid-cols-4 lg:aut-fit gap-4'>
-              {gameAchievements.results.map((achievement: any) => (
+              {gameAchievements.results.map((achievement) => (
                 <AchievementCard key={game.id} achievement={achievement} />
               ))}
             </div>

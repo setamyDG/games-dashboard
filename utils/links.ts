@@ -81,8 +81,8 @@ export const links = (currentMonth: string) => [
       {
         name: 'Platforms',
         path: routes.platforms,
-        query: '&page=1',
         image: '/game.svg',
+        query: '',
         isPng: false,
       },
       // {

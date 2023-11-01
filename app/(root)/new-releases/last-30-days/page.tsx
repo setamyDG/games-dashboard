@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
@@ -15,8 +16,8 @@ type Props = {
 };
 
 export const metadata: Metadata = {
-  title: 'daasdasd',
-  description: 'dupa',
+  title: 'Last 30 days',
+  description: 'Best games from last 30 days',
 };
 
 const Last30Days = async ({ searchParams }: Props) => {
@@ -30,8 +31,11 @@ const Last30Days = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <h1 className='headingText'>Last 30 days</h1>
-      <NewGamesList games={games} columns='3' />
+      <div className='flex gap-8 items-center'>
+        <Image alt='starIconPage' src='/star.svg' width={30} height={30} />
+        <h1 className='headingText'>Last 30 days</h1>
+      </div>
+      <NewGamesList games={games} />
     </>
   );
 };

@@ -1,6 +1,8 @@
 'use client';
 
-import { LogoutOutlined, MenuOutlined } from '@ant-design/icons';
+import { MenuOutlined } from '@ant-design/icons';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
+import { User } from '@nextui-org/user';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -46,17 +48,28 @@ export const Header = (): JSX.Element => {
       <Image src='/next-white.svg' width={120} height={120} alt='logo' />
       {session?.user && (
         <div className='flex items-center gap-3'>
-          <p className='text-white ml-2 hidden md:block'>
-            Hello - <span className='text-red-500'>{session.user.name}!</span>
-          </p>
-          <Image
-            src={(session.user.image as string) || '/game.svg'}
-            width={32}
-            height={32}
-            alt='user'
-            className='rounded-full'
-          />
-          <LogoutOutlined className='ml-2 text-red-500 cursor-pointer' onClick={() => signOut()} />
+          <Dropdown placement='bottom-start'>
+            <DropdownTrigger>
+              <User
+                as='button'
+                avatarProps={{
+                  isBordered: true,
+                  src: session?.user?.image || '/game.svg',
+                }}
+                className='transition-transform'
+                description={session?.user?.email}
+                name={session?.user?.name}
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label='User Actions' variant='flat'>
+              <DropdownItem key='settings'>
+                <Link href='/profile'>Profile</Link>
+              </DropdownItem>
+              <DropdownItem key='logout' color='danger' onClick={() => signOut()}>
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
           <div className='ml-2'>
             <ModeToggle />
           </div>

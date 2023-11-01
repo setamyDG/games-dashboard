@@ -3,7 +3,7 @@
 // import { Pagination } from 'antd';
 import { Input } from '@nextui-org/input';
 import { Pagination } from '@nextui-org/pagination';
-import type { Selection } from '@nextui-org/react';
+import { type Selection } from '@nextui-org/react';
 import { Select, SelectItem } from '@nextui-org/select';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -12,7 +12,7 @@ import { orderOptions, platformOptions } from './const/selectOptions';
 import { Props } from './NewGamesList.types';
 import { GameCard } from '@/components/Game/GameCard/GameCard';
 
-export const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatforms }: Props): JSX.Element => {
+export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatforms }: Props): JSX.Element => {
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
   const [ordering, setOrdering] = useState<Selection>(new Set([]));
@@ -70,6 +70,7 @@ export const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withou
                 value={searchValue}
                 onValueChange={setSearchValue}
                 onChange={handleOnSearch}
+                size='sm'
               />
             )}
 
@@ -81,6 +82,7 @@ export const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withou
                   label='Order By'
                   placeholder='Select an order'
                   className='max-w-xs'
+                  size='sm'
                 >
                   {orderOptions.map((animal) => (
                     <SelectItem key={animal.value} value={animal.value}>
@@ -96,6 +98,7 @@ export const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withou
                   label='Favorite Platform'
                   placeholder='Select an platform'
                   className='max-w-xs'
+                  size='sm'
                 >
                   {platformOptions.map((animal) => (
                     <SelectItem key={animal.value} value={animal.value}>
@@ -106,13 +109,7 @@ export const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withou
               )}
             </>
           </div>
-          <div
-            className={`${
-              columns === '2'
-                ? `grid grid-cols-1 md:grid-cols-2 lg:aut-fit gap-8 py-4`
-                : `grid grid-cols-1 md:grid-cols-${columns} lg:aut-fit gap-8 py-4`
-            }`}
-          >
+          <div className='grid grid-cols-1 md:grid-cols-3 lg:aut-fit gap-8 py-4'>
             {games?.results.map((game) => <GameCard key={game.id} game={game} />)}
           </div>
           <Pagination
@@ -120,6 +117,8 @@ export const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withou
             page={Number(currentPage)}
             onChange={handlePaginationChange}
             total={games?.count}
+            color='danger'
+            size='lg'
             className='flex justify-center items-center mt-12'
           />
         </>

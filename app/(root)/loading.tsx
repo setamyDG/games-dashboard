@@ -15,8 +15,8 @@ const Loading = () => (
         </Skeleton>
       </div>
     </Card>
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:aut-fit gap-8 py-4 my-8'>
-      {Array.from({ length: 10 }).map((_, i) => (
+    <div className='grid grid-cols-1 md:grid-cols-3 lg:aut-fit gap-8 py-4 my-8'>
+      {Array.from({ length: 12 }).map((_, i) => (
         <Card key={i} className='space-y-5 p-4' radius='lg'>
           <div className='space-y-3'>
             <Skeleton className='rounded-lg'>

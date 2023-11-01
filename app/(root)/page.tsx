@@ -26,11 +26,10 @@ const HomePage = async ({ searchParams }: Props) => {
   return (
     <>
       <div className='flex gap-8 items-center'>
-        <Image alt='homeIcon' src='/door.svg' width={40} height={40} />
+        <Image alt='homeIconPage' src='/door.svg' width={30} height={30} />
         <h1 className='headingText'>New and trending</h1>
       </div>
-      <p className='pageDescription'>Based on rawg.io API available games</p>
-      <NewGamesList games={games} columns='2' isSearch />
+      <NewGamesList games={games} isSearch />
     </>
   );
 };

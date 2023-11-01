@@ -1,8 +1,6 @@
 export const getLast30days = () => {
-  // Get today's date
   const currentDate = new Date();
 
-  // Create an array to store the dates
   const dateArray = [];
 
   // Generate the last 30 days

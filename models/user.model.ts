@@ -14,6 +14,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    favorites: {
+      type: [String],
+      default: [],
+    },
+    backgroundImage: {
+      type: String,
+      default: '',
+    },
   },
   { timestamps: true },
 );
