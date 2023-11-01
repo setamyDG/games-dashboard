@@ -7,7 +7,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { connectToDb } from '@/lib/mongodb';
 import User from '@/models/user.model';
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
