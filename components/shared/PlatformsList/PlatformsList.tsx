@@ -1,15 +1,22 @@
 'use client';
 
 import { Props } from './PlatformsList.types';
-import PlatformCard from '@/components/PlatformCard/PlatformCard';
+import { PlatformCard } from '@/components/PlatformCard/PlatformCard';
 
 const PlatformsList = ({ platforms }: Props): JSX.Element => {
+  const filteredPlatforms = platforms?.results.filter(
+    (platform) =>
+      platform.name === 'PC' ||
+      platform.name === 'PlayStation 5' ||
+      platform.name === 'PlayStation 4' ||
+      platform.name === 'Xbox One',
+  );
   return (
     <>
       {platforms && platforms?.results.length > 0 ? (
         <>
           <div className='grid grid-cols-1 md:grid-cols-3 lg:aut-fit gap-8 py-4'>
-            {platforms?.results.map((platform) => <PlatformCard key={platform.id} platform={platform} />)}
+            {filteredPlatforms?.map((platform) => <PlatformCard key={platform.id} platform={platform} />)}
           </div>
         </>
       ) : (

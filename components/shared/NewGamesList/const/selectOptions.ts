@@ -1,5 +1,5 @@
 export const orderOptions = [
-  { value: '', label: 'None' },
+  { value: 'none', label: 'None' },
   { value: 'name', label: 'Name' },
   { value: 'rating', label: 'Rating' },
   { value: 'released', label: 'Released' },
@@ -9,7 +9,7 @@ export const orderOptions = [
 ];
 
 export const platformOptions = [
-  { value: '', label: 'None' },
+  { value: '4,5,187,18,1', label: 'All' },
   { value: '4', label: 'PC' },
   { value: '187', label: 'PlayStation 5' },
   { value: '18', label: 'PlayStation 4' },

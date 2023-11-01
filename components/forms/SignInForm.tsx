@@ -2,6 +2,8 @@
 
 import { GoogleCircleFilled, GithubOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@nextui-org/button';
+import { CircularProgress, Divider } from '@nextui-org/react';
 import Link from 'next/link';
 // import { useRouter } from 'next/navigation';
 import { useRouter } from 'next/navigation';
@@ -9,14 +11,14 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
-import { Separator } from '../ui/separator';
 import { UserValidation } from '@/validations/user.form';
 
 const SignInForm = (): JSX.Element => {
   const [errorMessage, setErrorMsg] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(UserValidation),
@@ -28,6 +30,7 @@ const SignInForm = (): JSX.Element => {
 
   const onSubmit = async (data: z.infer<typeof UserValidation>) => {
     try {
+      setIsLoading(true);
       const response = await signIn('credentials', {
         email: data.email,
         password: data.password,
@@ -35,6 +38,7 @@ const SignInForm = (): JSX.Element => {
       });
 
       if (response?.error) {
+        setIsLoading(false);
         setErrorMsg('Invalid credentials');
         return;
       }
@@ -45,7 +49,16 @@ const SignInForm = (): JSX.Element => {
     } catch (error) {
       console.log('Error: ', error);
     }
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className='flex justify-center items-center mt-4'>
+        <CircularProgress aria-label='Loading...' />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -87,21 +100,21 @@ const SignInForm = (): JSX.Element => {
               Create Account
             </Link>
           </div>
-          <Button type='submit' className='w-full mt-8'>
+          <Button type='submit' color='danger' className='w-full mt-8'>
             Login
           </Button>
         </form>
       </Form>
-      <Separator />
-      <Button onClick={() => signIn('google')} className='bg-white border border-black text-black hover:bg-gray-100'>
-        <GoogleCircleFilled className='mr-4 text-xl' />
+      <Divider />
+      <Button color='danger' variant='bordered' startContent={<GoogleCircleFilled />} onClick={() => signIn('google')}>
         Sign up with Google
       </Button>
       <Button
+        startContent={<GithubOutlined />}
+        color='danger'
+        variant='bordered'
         onClick={() => signIn('github', { callbackUrl: 'http://localhost:3000/' })}
-        className='bg-white border border-black text-black hover:bg-gray-100'
       >
-        <GithubOutlined className='mr-4 text-xl' />
         Sign up with Github
       </Button>
     </>

@@ -693,6 +693,7 @@ export interface components {
       year_start?: number | null;
       /** Year end */
       year_end?: number | null;
+      games: components['schemas']['Game'][];
     };
     PlatformParentSingle: {
       /** ID */

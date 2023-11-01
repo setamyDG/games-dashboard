@@ -17,7 +17,7 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar';
 
-const Header = (): JSX.Element => {
+export const Header = (): JSX.Element => {
   const [isTop, setIsTop] = useState(true);
   const { data: session } = useSession();
   const { theme } = useTheme();
@@ -168,5 +168,3 @@ const Header = (): JSX.Element => {
     </header>
   );
 };
-
-export default Header;

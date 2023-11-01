@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Props } from './AchievementCard.types';
 
-const AchievementCard = ({ achievement }: Props): JSX.Element => (
+export const AchievementCard = ({ achievement }: Props): JSX.Element => (
   <div className='flex flex-col mt-4 hover:scale-105 transition-all overflow-hidden' key={achievement?.name as string}>
     <Image
       src={achievement?.image || '/game.svg'}
@@ -22,5 +22,3 @@ const AchievementCard = ({ achievement }: Props): JSX.Element => (
     </div>
   </div>
 );
-
-export default AchievementCard;

@@ -10,7 +10,7 @@ type Props = {
   screenShots: operations['games_screenshots_list']['responses']['200']['content']['application/json'];
 };
 
-const Screenshots = ({ screenShots }: Props) => {
+export const Screenshots = ({ screenShots }: Props) => {
   return (
     <PhotoProvider>
       {screenShots.results.map((screenShot) => (
@@ -28,5 +28,3 @@ const Screenshots = ({ screenShots }: Props) => {
     </PhotoProvider>
   );
 };
-
-export default Screenshots;

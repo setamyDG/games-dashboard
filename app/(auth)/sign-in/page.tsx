@@ -1,14 +1,16 @@
 import Image from 'next/image';
 import SignInForm from '@/components/forms/SignInForm';
 
+const imgUrl = '/images/three3.jpeg';
+
 const SignIn = (): JSX.Element => (
   <div className='flex h-screen'>
     <div className='w-3/5 relative hidden md:block'>
       <Image
-        src='/images/three3.jpeg' // Replace with the actual image path
+        src={imgUrl} // Replace with the actual image path
         alt='Cover Image'
-        layout='fill'
         objectFit='cover'
+        fill
       />
     </div>
     <div className='flex-1'>

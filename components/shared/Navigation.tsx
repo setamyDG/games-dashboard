@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { links } from '@/utils/links';
 
-const Navigation = (): JSX.Element => {
+export const Navigation = (): JSX.Element => {
   const pathname = usePathname();
 
   const currentMonth = new Date().toLocaleString('en-GB', { month: 'long' });
@@ -52,5 +52,3 @@ const Navigation = (): JSX.Element => {
     </nav>
   );
 };
-
-export default Navigation;

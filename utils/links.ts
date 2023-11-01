@@ -30,7 +30,6 @@ export const links = (currentMonth: string) => [
         name: 'This week',
         path: routes.thisWeek,
         query: '&page=1',
-
         image: '/fire.svg',
         isPng: false,
       },
@@ -38,7 +37,6 @@ export const links = (currentMonth: string) => [
         name: 'Next week',
         path: routes.nextWeek,
         query: '&page=1',
-
         image: '/next-week.svg',
         isPng: false,
       },
@@ -58,7 +56,6 @@ export const links = (currentMonth: string) => [
         name: 'Best of the year',
         path: routes.bestOfTheYear,
         query: '&page=1',
-
         image: '/win.svg',
         isPng: false,
       },
@@ -66,7 +63,6 @@ export const links = (currentMonth: string) => [
         name: 'Popular in 2022',
         path: routes.popularIn2022,
         query: '&page=1',
-
         image: '/chart.svg',
         isPng: false,
       },
@@ -74,7 +70,6 @@ export const links = (currentMonth: string) => [
         name: 'All time top 250',
         path: routes.allTimeTop250,
         query: '&page=1',
-
         image: '/crown.svg',
         isPng: false,
       },
@@ -87,106 +82,90 @@ export const links = (currentMonth: string) => [
         name: 'Platforms',
         path: routes.platforms,
         query: '&page=1',
-
         image: '/game.svg',
         isPng: false,
       },
-      {
-        name: 'Stores',
-        path: routes.stores,
-        image: '/download.svg',
-        query: '&page=1',
-
-        isPng: false,
-      },
-      {
-        name: 'Collections',
-        path: routes.collections,
-        image: '/collections.svg',
-        query: '&page=1',
-        isPng: false,
-      },
-      {
-        name: 'Developers',
-        path: routes.developers,
-        query: '&page=1',
-        image: '/dev.svg',
-        isPng: false,
-      },
+      // {
+      //   name: 'Developers',
+      //   path: routes.developers,
+      //   query: '&page=1',
+      //   image: '/dev.svg',
+      //   isPng: false,
+      // },
     ],
   },
-  {
-    title: 'Platforms',
-    children: [
-      {
-        name: 'PC',
-        path: routes.pc,
-        image: '/pc.svg',
-        query: '&page=1',
+  // {
+  //   title: 'Platforms',
+  //   children: [
+  //     {
+  //       name: 'PC',
+  //       path: routes.pc,
+  //       image: '/pc.svg',
+  //       query: '&page=1',
 
-        isPng: false,
-      },
-      {
-        name: 'PlayStation',
-        path: routes.playstation,
-        image: '/ps.svg',
-        query: '&page=1',
+  //       isPng: false,
+  //     },
+  //     {
+  //       name: 'PlayStation',
+  //       path: routes.playstation,
+  //       image: '/ps.svg',
+  //       query: '&page=1',
 
-        isPng: false,
-      },
-      {
-        name: 'Xbox One',
-        path: routes.xbox,
-        image: '/xbox.svg',
-        query: '&page=1',
+  //       isPng: false,
+  //     },
+  //     {
+  //       name: 'Xbox One',
+  //       path: routes.xbox,
+  //       image: '/xbox.svg',
+  //       query: '&page=1',
 
-        isPng: false,
-      },
-    ],
-  },
-  {
-    title: 'Genres',
-    children: [
-      {
-        name: 'Action',
-        path: routes.action,
-        image: '/images/action.png',
-        query: '&page=1',
+  //       isPng: false,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Genres',
+  //   children: [
+  //     {
+  //       name: 'Action',
+  //       path: routes.action,
+  //       image: '/images/action.png',
+  //       query: '&page=1',
 
-        isPng: true,
-      },
-      {
-        name: 'Strategy',
-        path: routes.strategy,
-        image: '/images/strategy.png',
-        query: '&page=1',
+  //       isPng: true,
+  //     },
+  //     {
+  //       name: 'Strategy',
+  //       path: routes.strategy,
+  //       image: '/images/strategy.png',
+  //       query: '&page=1',
 
-        isPng: true,
-      },
-      {
-        name: 'RPG',
-        path: routes.rpg,
-        image: '/images/rpg.png',
-        query: '&page=1',
+  //       isPng: true,
+  //     },
+  //     {
+  //       name: 'RPG',
+  //       path: routes.rpg,
+  //       image: '/images/rpg.png',
+  //       query: '&page=1',
 
-        isPng: true,
-      },
-      {
-        name: 'Shooter',
-        path: routes.shooter,
-        image: '/images/shooter.png',
-        query: '&page=1',
+  //       isPng: true,
+  //     },
+  //     {
+  //       name: 'Shooter',
+  //       path: routes.shooter,
+  //       image: '/images/shooter.png',
+  //       query: '&page=1',
 
-        isPng: true,
-      },
-      {
-        name: 'Sports',
-        path: routes.sport,
-        image: '/images/sports.png',
-        query: '&page=1',
+  //       isPng: true,
+  //     },
+  //     {
+  //       name: 'Sports',
+  //       path: routes.sport,
+  //       image: '/images/sports.png',
+  //       query: '&page=1',
 
-        isPng: true,
-      },
-    ],
-  },
+  //       isPng: true,
+  //     },
+  //   ],
+  // },
 ];

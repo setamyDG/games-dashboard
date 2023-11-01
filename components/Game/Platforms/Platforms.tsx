@@ -17,7 +17,7 @@ const mappedNamesToPlatforms = {
   'Xbox One': 'Xbox One',
 };
 
-const Platforms = ({ platforms }: Props): JSX.Element => {
+export const Platforms = ({ platforms }: Props): JSX.Element => {
   const filteredPlatforms = platforms
     ?.filter((platform) => availablePlatforms.includes(platform?.platform?.name as string))
     .sort((a, b) => String(a?.platform?.name).localeCompare(String(b?.platform?.name)));
@@ -44,5 +44,3 @@ const Platforms = ({ platforms }: Props): JSX.Element => {
     </>
   );
 };
-
-export default Platforms;

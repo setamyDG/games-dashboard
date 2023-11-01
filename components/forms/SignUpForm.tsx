@@ -2,9 +2,9 @@
 
 import { GoogleCircleFilled, GithubOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CircularProgress } from '@nextui-org/react';
 import Image from 'next/image';
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
@@ -20,6 +20,8 @@ import { UserValidationCreate } from '@/validations/user.form';
 const SignUpForm = (): JSX.Element => {
   const router = useRouter();
   const [errorMessage, setErrorMsg] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const form = useForm({
     resolver: zodResolver(UserValidationCreate),
     defaultValues: {
@@ -40,6 +42,7 @@ const SignUpForm = (): JSX.Element => {
     }
 
     try {
+      setIsLoading(true);
       await createUser({
         name: data.name,
         email: data.email,
@@ -49,7 +52,16 @@ const SignUpForm = (): JSX.Element => {
     } catch (error) {
       console.log('Error: ', error);
     }
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className='flex justify-center items-center mt-4'>
+        <CircularProgress aria-label='Loading...' />
+      </div>
+    );
+  }
 
   return (
     <>

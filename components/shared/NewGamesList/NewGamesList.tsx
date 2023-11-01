@@ -1,27 +1,22 @@
 'use client';
 
-import { Pagination } from 'antd';
+// import { Pagination } from 'antd';
+import { Input } from '@nextui-org/input';
+import { Pagination } from '@nextui-org/pagination';
+import type { Selection } from '@nextui-org/react';
+import { Select, SelectItem } from '@nextui-org/select';
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { orderOptions, platformOptions } from './const/selectOptions';
 import { Props } from './NewGamesList.types';
-import GameCard from '@/components/Game/GameCard/GameCard';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { GameCard } from '@/components/Game/GameCard/GameCard';
 
-const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatforms }: Props): JSX.Element => {
+export const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatforms }: Props): JSX.Element => {
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
-  const [ordering, setOrdering] = useState(searchParams.get('ordering') || '');
-  const [platforms, setPlatforms] = useState(searchParams.get('platforms') || '');
+  const [ordering, setOrdering] = useState<Selection>(new Set([]));
+  const [platforms, setPlatforms] = useState<Selection>(new Set([]));
   const pathname = usePathname();
   const router = useRouter();
   const currentPage = searchParams.get('page');
@@ -36,26 +31,30 @@ const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatfo
     [searchParams],
   );
 
-  const handleOnChangeSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(e.target.value);
-  };
-
   const handlePaginationChange = (value: number): void => {
     router.push(pathname + '?' + createQueryString('page', `${value}`));
   };
 
-  const handleOnSearch = (): void => {
-    router.push(pathname + '?' + createQueryString('search', `${searchValue}`));
+  const handleOnSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    router.push(pathname + '?' + createQueryString('search', `${e.target.value}`));
   };
 
-  const onChangeOrdering = (value: string): void => {
-    setOrdering(value);
-    router.push(pathname + '?' + createQueryString('ordering', `${value}`));
+  const onChangeOrdering = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setOrdering(new Set([e.target.value]));
+    if (e.target.value === 'None') {
+      return;
+    } else {
+      router.push(pathname + '?' + createQueryString('ordering', `${e.target.value}`));
+    }
   };
 
-  const onChangePlatform = (value: string): void => {
-    setPlatforms(value);
-    router.push(pathname + '?' + createQueryString('platforms', `${value}`));
+  const onChangePlatform = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setPlatforms(new Set([e.target.value]));
+    if (e.target.value === 'None') {
+      return;
+    } else {
+      router.push(pathname + '?' + createQueryString('platforms', `${e.target.value}`));
+    }
   };
 
   return (
@@ -65,46 +64,44 @@ const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatfo
           <div className='mt-4 flex gap-3 items-center'>
             {isSearch && (
               <Input
-                placeholder='Search'
+                startContent={<MagnifyingGlassIcon />}
+                label='Search'
+                placeholder='Enter your game'
                 value={searchValue}
-                onSearch={handleOnSearch}
-                onChange={handleOnChangeSearch}
+                onValueChange={setSearchValue}
+                onChange={handleOnSearch}
               />
             )}
 
             <>
               {!withoutOrdering && (
-                <Select value={ordering} onValueChange={onChangeOrdering}>
-                  <SelectTrigger>
-                    <SelectValue placeholder='Order By' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Order by</SelectLabel>
-                      {orderOptions.map((option) => (
-                        <SelectItem key={option.label} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
+                <Select
+                  selectedKeys={ordering}
+                  onChange={onChangeOrdering}
+                  label='Order By'
+                  placeholder='Select an order'
+                  className='max-w-xs'
+                >
+                  {orderOptions.map((animal) => (
+                    <SelectItem key={animal.value} value={animal.value}>
+                      {animal.label}
+                    </SelectItem>
+                  ))}
                 </Select>
               )}
               {!withoutPlatforms && (
-                <Select value={platforms} onValueChange={onChangePlatform}>
-                  <SelectTrigger>
-                    <SelectValue placeholder='Platforms' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Platforms</SelectLabel>
-                      {platformOptions.map((option) => (
-                        <SelectItem key={option.label} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
+                <Select
+                  selectedKeys={platforms}
+                  onChange={onChangePlatform}
+                  label='Favorite Platform'
+                  placeholder='Select an platform'
+                  className='max-w-xs'
+                >
+                  {platformOptions.map((animal) => (
+                    <SelectItem key={animal.value} value={animal.value}>
+                      {animal.label}
+                    </SelectItem>
+                  ))}
                 </Select>
               )}
             </>
@@ -119,11 +116,10 @@ const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatfo
             {games?.results.map((game) => <GameCard key={game.id} game={game} />)}
           </div>
           <Pagination
-            defaultCurrent={1}
-            current={Number(currentPage)}
+            initialPage={1}
+            page={Number(currentPage)}
             onChange={handlePaginationChange}
             total={games?.count}
-            showSizeChanger={false}
             className='flex justify-center items-center mt-12'
           />
         </>
@@ -133,5 +129,3 @@ const NewGamesList = ({ games, columns, isSearch, withoutOrdering, withoutPlatfo
     </>
   );
 };
-
-export default NewGamesList;

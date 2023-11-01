@@ -1,6 +1,6 @@
 import { Props } from './Background.types';
 
-const Background = ({ src }: Props) => (
+export const Background = ({ src }: Props) => (
   <div style={{ zIndex: 100 }}>
     <div className='absolute top-0 left-0 w-full h-full' style={{ zIndex: 99 }}>
       <div style={{ height: 500 }}>
@@ -17,5 +17,3 @@ const Background = ({ src }: Props) => (
     </div>
   </div>
 );
-
-export default Background;

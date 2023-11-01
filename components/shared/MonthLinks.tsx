@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { generateMonths } from '@/utils/methots';
 
-const MonthsLinks = (): JSX.Element => {
+export const MonthsLinks = (): JSX.Element => {
   const links = generateMonths();
   const pathname = usePathname();
 
@@ -35,5 +35,3 @@ const MonthsLinks = (): JSX.Element => {
     </div>
   );
 };
-
-export default MonthsLinks;

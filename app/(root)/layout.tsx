@@ -2,10 +2,10 @@ import '../globals.css';
 import type { Metadata } from 'next';
 import { Tektur } from 'next/font/google';
 import { NextAuthProvider } from '@/components/Providers/NextAuthProvider';
-import ReactQueryProvider from '@/components/Providers/QueryClient';
+import { NextUILibProvider } from '@/components/Providers/NextUIProvider';
 import { ThemeProvider } from '@/components/Providers/ThemeProvider';
-import Header from '@/components/shared/Header';
-import Navigation from '@/components/shared/Navigation';
+import { Header } from '@/components/shared/Header';
+import { Navigation } from '@/components/shared/Navigation';
 const tektur = Tektur({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -17,9 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={`${tektur.className} bg-neutral-900`}>
-        <ReactQueryProvider>
-          <NextAuthProvider>
-            <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+        <NextAuthProvider>
+          <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+            <NextUILibProvider>
               <Header />
               <main className='flex'>
                 <Navigation />
@@ -27,9 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <div className='w-full'>{children}</div>
                 </section>
               </main>
-            </ThemeProvider>
-          </NextAuthProvider>
-        </ReactQueryProvider>
+            </NextUILibProvider>
+          </ThemeProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

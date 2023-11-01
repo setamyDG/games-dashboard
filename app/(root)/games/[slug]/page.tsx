@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { getGame, getGameScreenShots, getGameSeries, getGameAchievements } from '@/actions/games.actions';
-import AchievementCard from '@/components/Game/AchievementCard/AchievementCard';
-import Background from '@/components/Game/Background/Background';
-import GameCard from '@/components/Game/GameCard/GameCard';
-import Platforms from '@/components/Game/Platforms/Platforms';
-import Screenshots from '@/components/Game/Screenshots';
+import { AchievementCard } from '@/components/Game/AchievementCard/AchievementCard';
+import { Background } from '@/components/Game/Background/Background';
+import { GameCard } from '@/components/Game/GameCard/GameCard';
+import { Platforms } from '@/components/Game/Platforms/Platforms';
+import { Screenshots } from '@/components/Game/Screenshots';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import 'react-photo-view/dist/react-photo-view.css';
 
@@ -24,6 +26,8 @@ const GamePage = async ({ params }: Props) => {
   const screenShots = await getGameScreenShots(slug);
   const gameSeries = await getGameSeries(slug);
   const gameAchievements = await getGameAchievements(slug);
+
+  console.log('game?.results', game?.results);
 
   return (
     <>
@@ -60,19 +64,42 @@ const GamePage = async ({ params }: Props) => {
         </div>
         <div className='mt-8'>
           <h1 className='font-semibold text-red-500'>Series</h1>
-          <div className='grid grid-cols-1 md:grid-cols-3 lg:aut-fit gap-4'>
-            {gameSeries.results.map((game: any) => (
-              <GameCard key={game.id} game={game} isSeries />
-            ))}
-          </div>
+
+          {gameSeries.results.length === 0 ? (
+            <Alert className='mt-2'>
+              <QuestionMarkCircledIcon className='h-4 w-4' />
+              <AlertTitle>Sorry champ!</AlertTitle>
+              <AlertDescription>
+                We do not have any information about game series regarding{' '}
+                <span className='font-bold text-red-500'>{game?.name}</span>
+              </AlertDescription>
+            </Alert>
+          ) : (
+            <div key={game.id} className='grid grid-cols-1 md:grid-cols-3 lg:aut-fit gap-4'>
+              {gameSeries.results.map((game: any) => (
+                <GameCard key={game.id} game={game} isSeries />
+              ))}
+            </div>
+          )}
         </div>
         <div className='mt-12'>
           <h1 className='font-semibold text-red-500'>Hardest achievements</h1>
-          <div className='grid grid-cols-1 md:grid-cols-4 lg:aut-fit gap-4'>
-            {gameAchievements.results.map((achievement: any) => (
-              <AchievementCard key={game.id} achievement={achievement} />
-            ))}
-          </div>
+          {gameAchievements.results.length === 0 ? (
+            <Alert className='mt-2'>
+              <QuestionMarkCircledIcon className='h-4 w-4' />
+              <AlertTitle>Sorry champ!</AlertTitle>
+              <AlertDescription>
+                Our database does not have any information about achievements regarding{' '}
+                <span className='font-bold text-red-500'>{game?.name}</span>
+              </AlertDescription>
+            </Alert>
+          ) : (
+            <div className='grid grid-cols-1 md:grid-cols-4 lg:aut-fit gap-4'>
+              {gameAchievements.results.map((achievement: any) => (
+                <AchievementCard key={game.id} achievement={achievement} />
+              ))}
+            </div>
+          )}
         </div>
         <div className='mt-12'>
           <h1 className='font-semibold text-red-500'>Genres</h1>
