@@ -5,7 +5,7 @@ import React from 'react';
 import { getPlatforms } from '@/actions/platforms.actions';
 import { PlatformsList } from '@/components/shared/PlatformsList/PlatformsList';
 
-const Platforms = async () => {
+const PlatformsPage = async () => {
   const platforms = await getPlatforms();
   const session = await getServerSession();
 
@@ -24,4 +24,4 @@ const Platforms = async () => {
   );
 };
 
-export default Platforms;
+export default PlatformsPage;
