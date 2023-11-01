@@ -61,7 +61,7 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
     <>
       {games && games?.results.length > 0 ? (
         <>
-          <div className='mt-4 flex gap-3 items-center'>
+          <div className='flex-col md:flex-row mt-4 flex gap-3 items-center'>
             {isSearch && (
               <Input
                 startContent={<MagnifyingGlassIcon />}
@@ -81,7 +81,6 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
                   onChange={onChangeOrdering}
                   label='Order By'
                   placeholder='Select an order'
-                  className='max-w-xs'
                   size='sm'
                 >
                   {orderOptions.map((animal) => (
@@ -97,7 +96,6 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
                   onChange={onChangePlatform}
                   label='Favorite Platform'
                   placeholder='Select an platform'
-                  className='max-w-xs'
                   size='sm'
                 >
                   {platformOptions.map((animal) => (

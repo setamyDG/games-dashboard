@@ -5,7 +5,6 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-o
 import { User } from '@nextui-org/user';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -18,29 +17,16 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from '@/components/ui/menubar';
-import { generateMonths } from '@/utils/methots';
 import { routes } from '@/utils/routes';
 
 export const Header = (): JSX.Element => {
   const [isTop, setIsTop] = useState(true);
   const { data: session } = useSession();
   const { theme } = useTheme();
-  const pathname = usePathname();
-  const currentMonth = new Date().toLocaleString('en-GB', { month: 'long' });
-
-  const months = generateMonths();
-
-  const checkIActive = (path: string) => {
-    if (pathname === path) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 120) {
+      if (window.scrollY > 20) {
         setIsTop(false);
       } else {
         setIsTop(true);
@@ -50,33 +36,35 @@ export const Header = (): JSX.Element => {
 
   return (
     <header className={`${!isTop ? 'backdrop-blur-md transition-all header' : 'header'}`} style={{ zIndex: 125 }}>
-      <Image src='/next-white.svg' width={120} height={120} alt='logo' />
       {session?.user && (
-        <div className='flex items-center gap-3'>
-          <Dropdown placement='bottom-start'>
-            <DropdownTrigger>
-              <User
-                as='button'
-                avatarProps={{
-                  isBordered: true,
-                  src: session?.user?.image || '/game.svg',
-                }}
-                className='transition-transform'
-                description={session?.user?.email}
-                name={session?.user?.name}
-              />
-            </DropdownTrigger>
-            <DropdownMenu aria-label='User Actions' variant='flat'>
-              <DropdownItem key='settings'>
-                <Link href='/profile'>Profile</Link>
-              </DropdownItem>
-              <DropdownItem key='logout' color='danger' onClick={() => signOut()}>
-                Log Out
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <div className='ml-2'>
-            <ModeToggle />
+        <div className='flex items-center justify-between w-full'>
+          <Image src='/next-white.svg' width={120} height={120} alt='logo' className='hidden xl:block' />
+          <div className='flex gap-4 items-center'>
+            <Dropdown placement='bottom-start'>
+              <DropdownTrigger>
+                <User
+                  as='button'
+                  avatarProps={{
+                    isBordered: true,
+                    src: session?.user?.image || '/game.svg',
+                  }}
+                  className='transition-transform'
+                  description={session?.user?.email}
+                  name={session?.user?.name}
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label='User Actions' variant='flat'>
+                <DropdownItem key='settings'>
+                  <Link href='/profile'>Profile</Link>
+                </DropdownItem>
+                <DropdownItem key='logout' color='danger' onClick={() => signOut()}>
+                  Log Out
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            <div className='hidden xl:block'>
+              <ModeToggle />
+            </div>
           </div>
           <div className='xl:hidden'>
             <Menubar>
@@ -86,7 +74,7 @@ export const Header = (): JSX.Element => {
                 </MenubarTrigger>
                 <MenubarContent className='flex flex-col  text-white'>
                   <MenubarItem>
-                    <Link href={routes.home} className={`${checkIActive('/') && 'text-red-500'}`}>
+                    <Link href={routes.home} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       Home
                     </Link>
                   </MenubarItem>
@@ -106,7 +94,7 @@ export const Header = (): JSX.Element => {
                       Next week
                     </Link>
                   </MenubarItem>
-                  <MenubarItem>
+                  {/* <MenubarItem>
                     <Link
                       href={{
                         pathname: routes.releaseCalendar,
@@ -116,7 +104,7 @@ export const Header = (): JSX.Element => {
                     >
                       Release calendar
                     </Link>
-                  </MenubarItem>
+                  </MenubarItem> */}
                   <MenubarSeparator />
                   <MenubarItem>
                     <Link href={routes.bestOfTheYear} className={theme === 'dark' ? 'text-white' : 'text-black'}>

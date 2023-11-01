@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <main className='flex'>
                 <Navigation />
                 <section className='mainContainer'>
-                  <div className='w-full'>{children}</div>
+                  <div className='w-full px-4 md:px-0'>{children}</div>
                 </section>
               </main>
             </NextUILibProvider>

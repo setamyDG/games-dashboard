@@ -27,11 +27,9 @@ export const PlatformCard = ({ platform }: Props): JSX.Element => {
             <h5 className='text-small tracking-tight text-red-500'>{platform.name}</h5>
           </div>
         </div>
-        {/* <Link href={`/platforms/${platform.slug}`}> */}
         <Button endContent={<ExternalLinkIcon />} radius='full' size='sm' onPress={() => {}}>
           See more
         </Button>
-        {/* </Link> */}
       </CardHeader>
       <Divider />
       <CardBody className='px-3 py-2 text-small text-default-400'>
