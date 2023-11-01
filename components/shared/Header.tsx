@@ -18,12 +18,17 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from '@/components/ui/menubar';
+import { generateMonths } from '@/utils/methots';
+import { routes } from '@/utils/routes';
 
 export const Header = (): JSX.Element => {
   const [isTop, setIsTop] = useState(true);
   const { data: session } = useSession();
   const { theme } = useTheme();
   const pathname = usePathname();
+  const currentMonth = new Date().toLocaleString('en-GB', { month: 'long' });
+
+  const months = generateMonths();
 
   const checkIActive = (path: string) => {
     if (pathname === path) {
@@ -81,93 +86,57 @@ export const Header = (): JSX.Element => {
                 </MenubarTrigger>
                 <MenubarContent className='flex flex-col  text-white'>
                   <MenubarItem>
-                    <Link href='/' className={`${checkIActive('/') && 'text-red-500'}`}>
+                    <Link href={routes.home} className={`${checkIActive('/') && 'text-red-500'}`}>
                       Home
                     </Link>
                   </MenubarItem>
                   <MenubarSeparator />
-
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link href={routes.last30Days} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       Last 30 days
                     </Link>
                   </MenubarItem>
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link href={routes.thisWeek} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       This week
                     </Link>
                   </MenubarItem>
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link href={routes.nextWeek} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       Next week
                     </Link>
                   </MenubarItem>
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link
+                      href={{
+                        pathname: routes.releaseCalendar,
+                        query: `&dates=${months.find((month) => month.label === currentMonth)?.currentMonthDates}`,
+                      }}
+                      className={theme === 'dark' ? 'text-white' : 'text-black'}
+                    >
                       Release calendar
                     </Link>
                   </MenubarItem>
                   <MenubarSeparator />
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link href={routes.bestOfTheYear} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       Best of the year
                     </Link>
                   </MenubarItem>
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link href={routes.popularIn2022} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       Popular in 2022
                     </Link>
                   </MenubarItem>
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link href={routes.allTimeTop250} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       All time 250
                     </Link>
                   </MenubarItem>
                   <MenubarSeparator />
                   <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
+                    <Link href={routes.platforms} className={theme === 'dark' ? 'text-white' : 'text-black'}>
                       Platforms
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href='/stores' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Stores
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Collections
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Developers
-                    </Link>
-                  </MenubarItem>
-                  <MenubarSeparator />
-                  <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Action
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Strategy
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      RPG
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Shooter
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href='/abc' className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Sports
                     </Link>
                   </MenubarItem>
                   <MenubarSeparator />
