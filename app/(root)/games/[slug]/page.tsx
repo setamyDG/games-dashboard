@@ -113,23 +113,9 @@ const GamePage = async ({ params }: Props) => {
                   alt={genre.name}
                   className='rounded-xl h-32 w-48 object-cover'
                 />
-                <span>{genre.name}</span>
+                <span className='mt-2'>{genre.name}</span>
               </div>
             ))}
-          </div>
-        </div>
-        <div className='mt-12'>
-          <h1 className='font-semibold text-red-500'>Where to buy</h1>
-          <div className='flex gap-4 mt-4'>
-            {game?.stores.map((store: any) => {
-              return (
-                <Link href={store?.store?.domain} key={store.id}>
-                  <Button className='text-xs px-8' key={store?.id}>
-                    {store.store.name}
-                  </Button>
-                </Link>
-              );
-            })}
           </div>
         </div>
       </div>

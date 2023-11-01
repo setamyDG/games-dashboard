@@ -3,7 +3,7 @@
 import { Props } from './PlatformsList.types';
 import { PlatformCard } from '@/components/PlatformCard/PlatformCard';
 
-const PlatformsList = ({ platforms }: Props): JSX.Element => {
+export const PlatformsList = ({ platforms }: Props): JSX.Element => {
   const filteredPlatforms = platforms?.results.filter(
     (platform) =>
       platform.name === 'PC' ||
@@ -25,5 +25,3 @@ const PlatformsList = ({ platforms }: Props): JSX.Element => {
     </>
   );
 };
-
-export default PlatformsList;
