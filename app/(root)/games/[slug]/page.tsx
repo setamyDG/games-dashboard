@@ -27,8 +27,6 @@ const GamePage = async ({ params }: Props) => {
   const gameSeries = await getGameSeries(slug);
   const gameAchievements = await getGameAchievements(slug);
 
-  console.log('game?.results', game?.results);
-
   return (
     <>
       <Background src={game.background_image as string} />
