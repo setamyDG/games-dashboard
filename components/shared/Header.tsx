@@ -87,7 +87,7 @@ export const Header = (): JSX.Element => {
   const renderMobileItems = () => (
     <>
       {navigationLinks.map(({ title, children }) => (
-        <NavbarMenuItem key={title}>
+        <NavbarMenuItem key={title} className='flex justify-center'>
           <Dropdown showArrow>
             <NavbarItem>
               <DropdownTrigger>
@@ -114,7 +114,7 @@ export const Header = (): JSX.Element => {
                 <DropdownItem
                   key={link.name}
                   description={link.description}
-                  startContent={<ChevronDownIcon />}
+                  startContent={titleIcons[link.name as keyof typeof titleIcons]}
                   onClick={() => router.push(link.path)}
                 >
                   {link.name}
