@@ -1,6 +1,5 @@
 'use client';
 
-// import { Pagination } from 'antd';
 import { Input } from '@nextui-org/input';
 import { Pagination } from '@nextui-org/pagination';
 import { type Selection } from '@nextui-org/react';
@@ -60,58 +59,55 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
   };
 
   const total = Math.floor((games?.count || 0) / 20);
-  console.log('games?.count', games?.count);
+
   return (
     <>
+      <div className='flex-col md:flex-row mt-4 flex gap-3 items-center'>
+        {isSearch && (
+          <Input
+            startContent={<MagnifyingGlassIcon />}
+            label='Search'
+            placeholder='Enter your game'
+            value={searchValue}
+            onValueChange={setSearchValue}
+            onChange={handleOnSearch}
+            onSubmit={handleOnSearch}
+            size='sm'
+          />
+        )}
+        {!withoutOrdering && (
+          <Select
+            selectedKeys={ordering}
+            onChange={onChangeOrdering}
+            label='Order By'
+            placeholder='Select an order'
+            size='sm'
+          >
+            {orderOptions.map((animal) => (
+              <SelectItem key={animal.value} value={animal.value}>
+                {animal.label}
+              </SelectItem>
+            ))}
+          </Select>
+        )}
+        {!withoutPlatforms && (
+          <Select
+            selectedKeys={platforms}
+            onChange={onChangePlatform}
+            label='Favorite Platform'
+            placeholder='Select an platform'
+            size='sm'
+          >
+            {platformOptions.map((animal) => (
+              <SelectItem key={animal.value} value={animal.value}>
+                {animal.label}
+              </SelectItem>
+            ))}
+          </Select>
+        )}
+      </div>
       {games && games?.results.length > 0 ? (
         <>
-          <div className='flex-col md:flex-row mt-4 flex gap-3 items-center'>
-            {isSearch && (
-              <Input
-                startContent={<MagnifyingGlassIcon />}
-                label='Search'
-                placeholder='Enter your game'
-                value={searchValue}
-                onValueChange={setSearchValue}
-                onChange={handleOnSearch}
-                onSubmit={handleOnSearch}
-                size='sm'
-              />
-            )}
-
-            <>
-              {!withoutOrdering && (
-                <Select
-                  selectedKeys={ordering}
-                  onChange={onChangeOrdering}
-                  label='Order By'
-                  placeholder='Select an order'
-                  size='sm'
-                >
-                  {orderOptions.map((animal) => (
-                    <SelectItem key={animal.value} value={animal.value}>
-                      {animal.label}
-                    </SelectItem>
-                  ))}
-                </Select>
-              )}
-              {!withoutPlatforms && (
-                <Select
-                  selectedKeys={platforms}
-                  onChange={onChangePlatform}
-                  label='Favorite Platform'
-                  placeholder='Select an platform'
-                  size='sm'
-                >
-                  {platformOptions.map((animal) => (
-                    <SelectItem key={animal.value} value={animal.value}>
-                      {animal.label}
-                    </SelectItem>
-                  ))}
-                </Select>
-              )}
-            </>
-          </div>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 py-4'>
             {games?.results.map((game) => <GameCard key={game.id} game={game} />)}
           </div>
