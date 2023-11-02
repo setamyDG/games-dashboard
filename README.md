@@ -32,3 +32,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+// deploy to vercel
+
+- "vercel" w terminalu + (w .env.local jest NEXTAUTH_URL=...localhost...)
+- zdeplojuje sie na vercelu
+- "jak juz jest po deployu, widzisz link do strony, to wchodzisz w settings i tam masz env variable i tam zmianiasz  NEXTAUTH_URL na ten prodowy link z vercela"
+- zmieniasz logowanie u providera pdmieniajac na prodowy link w github / google

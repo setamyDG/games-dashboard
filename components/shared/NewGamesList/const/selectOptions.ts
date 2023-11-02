@@ -3,9 +3,8 @@ export const orderOptions = [
   { value: 'name', label: 'Name' },
   { value: 'rating', label: 'Rating' },
   { value: 'released', label: 'Released' },
-  { value: 'added', label: 'Added' },
-  { value: 'created', label: 'Created' },
   { value: 'updated', label: 'Updated' },
+  { value: 'popularity', label: 'Popularity' },
 ];
 
 export const platformOptions = [

@@ -5,7 +5,6 @@ import { NextAuthProvider } from '@/components/Providers/NextAuthProvider';
 import { NextUILibProvider } from '@/components/Providers/NextUIProvider';
 import { ThemeProvider } from '@/components/Providers/ThemeProvider';
 import { Header } from '@/components/shared/Header';
-import { Navigation } from '@/components/shared/Navigation';
 const tektur = Tektur({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -22,7 +21,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <NextUILibProvider>
               <Header />
               <main className='flex'>
-                <Navigation />
                 <section className='mainContainer'>
                   <div className='w-full px-4 md:px-0'>{children}</div>
                 </section>

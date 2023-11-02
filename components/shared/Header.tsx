@@ -1,45 +1,153 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { MenuOutlined } from '@ant-design/icons';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
+import { Navbar, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@nextui-org/navbar';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react';
 import { User } from '@nextui-org/user';
+import { ChevronDownIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { ModeToggle } from './ThemeToggle';
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarTrigger,
-} from '@/components/ui/menubar';
-import { routes } from '@/utils/routes';
+import { useState } from 'react';
+import { links } from '@/utils/links';
 
 export const Header = (): JSX.Element => {
-  const [isTop, setIsTop] = useState(true);
   const { data: session } = useSession();
-  const { theme } = useTheme();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        setIsTop(false);
-      } else {
-        setIsTop(true);
-      }
-    });
-  });
+  const currentMonth = new Date().toLocaleString('en-GB', { month: 'long' });
+  const navigationLinks = links(currentMonth);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const titleIcons = {
+    'Last 30 days': <Image alt='bestOfTheYearIcon' src='/star.svg' width={24} height={24} />,
+    'This week': <Image alt='bestOfTheYearIcon' src='/fire.svg' width={24} height={24} />,
+    'Next week': <Image alt='bestOfTheYearIcon' src='/next-week.svg' width={24} height={24} />,
+    'Release calendar': <Image alt='bestOfTheYearIcon' src='/calendar.svg' width={24} height={24} />,
+    'Best of the year': <Image alt='bestOfTheYearIcon' src='/crown.svg' width={24} height={24} />,
+    'Popular in 2022': <Image alt='bestOfTheYearIcon' src='/chart.svg' width={24} height={24} />,
+    'All time top 250': <Image alt='bestOfTheYearIcon' src='/win.svg' width={24} height={24} />,
+    Platforms: <Image alt='bestOfTheYearIcon' src='/game.svg' width={24} height={24} />,
+  };
+
+  const renderItems = () => (
+    <>
+      {navigationLinks.map(({ title, children }) => {
+        const firstWordInTitle = title.split(' ')[0].toLowerCase();
+        return (
+          <NavbarItem key={title}>
+            <Dropdown showArrow>
+              <NavbarItem>
+                <DropdownTrigger>
+                  <Button
+                    color={pathname.includes(firstWordInTitle) ? 'danger' : 'default'}
+                    disableRipple
+                    className='p-0 bg-transparent data-[hover=true]:bg-transparent'
+                    endContent={<ChevronDownIcon />}
+                    variant='light'
+                  >
+                    {title}
+                  </Button>
+                </DropdownTrigger>
+              </NavbarItem>
+              <DropdownMenu
+                color='danger'
+                variant='shadow'
+                aria-label={title}
+                className='w-[370px]'
+                itemClasses={{
+                  base: 'gap-4',
+                }}
+              >
+                {children.map((link) => (
+                  <DropdownItem
+                    key={link.name}
+                    description={link.description}
+                    startContent={titleIcons[link.name as keyof typeof titleIcons]}
+                    onClick={() => router.push(link.path)}
+                    className={
+                      pathname === link.path
+                        ? 'text-[rgb(243,16,97)] text-sm'
+                        : 'text-white hover:text-[rgb(243,16,97)] text-sm'
+                    }
+                  >
+                    {link.name}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarItem>
+        );
+      })}
+    </>
+  );
+
+  const renderMobileItems = () => (
+    <>
+      {navigationLinks.map(({ title, children }) => (
+        <NavbarMenuItem key={title}>
+          <Dropdown showArrow>
+            <NavbarItem>
+              <DropdownTrigger>
+                <Button
+                  disableRipple
+                  className='p-0 bg-transparent data-[hover=true]:bg-transparent'
+                  endContent={<ChevronDownIcon />}
+                  variant='light'
+                >
+                  {title}
+                </Button>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu
+              color='danger'
+              variant='shadow'
+              aria-label={title}
+              className='w-[350px]'
+              itemClasses={{
+                base: 'gap-4',
+              }}
+            >
+              {children.map((link) => (
+                <DropdownItem
+                  key={link.name}
+                  description={link.description}
+                  startContent={<ChevronDownIcon />}
+                  onClick={() => router.push(link.path)}
+                >
+                  {link.name}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarMenuItem>
+      ))}
+    </>
+  );
 
   return (
-    <header className={`${!isTop ? 'backdrop-blur-md transition-all header' : 'header'}`} style={{ zIndex: 125 }}>
+    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} className='px-0 md:px-8'>
+      <NavbarContent className='flex md:hidden' justify='start'>
+        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} />
+      </NavbarContent>
+      <NavbarContent className='hidden md:flex gap-4' justify='center'>
+        {renderItems()}
+        <NavbarItem>
+          <Link
+            className={
+              pathname === '/' ? 'text-[rgb(243,16,97)] text-sm' : 'text-white hover:text-[rgb(243,16,97)] text-sm'
+            }
+            href='/'
+          >
+            Home
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
       {session?.user && (
-        <div className='flex items-center justify-between w-full'>
-          <Image src='/next-white.svg' width={120} height={120} alt='logo' className='hidden xl:block' />
-          <div className='flex gap-4 items-center'>
+        <NavbarContent justify='end'>
+          <NavbarItem className='hidden md:flex'>
             <Dropdown placement='bottom-start'>
               <DropdownTrigger>
                 <User
@@ -57,84 +165,18 @@ export const Header = (): JSX.Element => {
                 <DropdownItem key='settings'>
                   <Link href='/profile'>Profile</Link>
                 </DropdownItem>
-                <DropdownItem key='logout' color='danger' onClick={() => signOut()}>
-                  Log Out
-                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            <div className='hidden xl:block'>
-              <ModeToggle />
-            </div>
-          </div>
-          <div className='xl:hidden'>
-            <Menubar>
-              <MenubarMenu>
-                <MenubarTrigger>
-                  <MenuOutlined />
-                </MenubarTrigger>
-                <MenubarContent className='flex flex-col  text-white'>
-                  <MenubarItem>
-                    <Link href={routes.home} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Home
-                    </Link>
-                  </MenubarItem>
-                  <MenubarSeparator />
-                  <MenubarItem>
-                    <Link href={routes.last30Days} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Last 30 days
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href={routes.thisWeek} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      This week
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href={routes.nextWeek} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Next week
-                    </Link>
-                  </MenubarItem>
-                  {/* <MenubarItem>
-                    <Link
-                      href={{
-                        pathname: routes.releaseCalendar,
-                        query: `&dates=${months.find((month) => month.label === currentMonth)?.currentMonthDates}`,
-                      }}
-                      className={theme === 'dark' ? 'text-white' : 'text-black'}
-                    >
-                      Release calendar
-                    </Link>
-                  </MenubarItem> */}
-                  <MenubarSeparator />
-                  <MenubarItem>
-                    <Link href={routes.bestOfTheYear} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Best of the year
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href={routes.popularIn2022} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Popular in 2022
-                    </Link>
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Link href={routes.allTimeTop250} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      All time 250
-                    </Link>
-                  </MenubarItem>
-                  <MenubarSeparator />
-                  <MenubarItem>
-                    <Link href={routes.platforms} className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                      Platforms
-                    </Link>
-                  </MenubarItem>
-                  <MenubarSeparator />
-                  <MenubarItem className={theme === 'dark' ? 'text-white' : 'text-black'}>Logout</MenubarItem>
-                </MenubarContent>
-              </MenubarMenu>
-            </Menubar>
-          </div>
-        </div>
+          </NavbarItem>
+          <NavbarItem>
+            <Button onClick={() => signOut()} color='danger' href='#' variant='flat'>
+              Sign Out
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
       )}
-    </header>
+
+      <NavbarMenu className='hidden md:block items-center w-full'>{renderMobileItems()}</NavbarMenu>
+    </Navbar>
   );
 };

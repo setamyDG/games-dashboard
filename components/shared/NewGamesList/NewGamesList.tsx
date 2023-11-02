@@ -36,7 +36,9 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
   };
 
   const handleOnSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    router.push(pathname + '?' + createQueryString('search', `${e.target.value}`));
+    setTimeout(() => {
+      router.push(pathname + '?' + createQueryString('search', `${e.target.value}`));
+    }, 2000);
   };
 
   const onChangeOrdering = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -57,6 +59,8 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
     }
   };
 
+  const total = Math.floor((games?.count || 0) / 20);
+  console.log('games?.count', games?.count);
   return (
     <>
       {games && games?.results.length > 0 ? (
@@ -70,6 +74,7 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
                 value={searchValue}
                 onValueChange={setSearchValue}
                 onChange={handleOnSearch}
+                onSubmit={handleOnSearch}
                 size='sm'
               />
             )}
@@ -107,14 +112,14 @@ export const NewGamesList = ({ games, isSearch, withoutOrdering, withoutPlatform
               )}
             </>
           </div>
-          <div className='grid grid-cols-1 md:grid-cols-3 lg:aut-fit gap-8 py-4'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 py-4'>
             {games?.results.map((game) => <GameCard key={game.id} game={game} />)}
           </div>
           <Pagination
             initialPage={1}
             page={Number(currentPage)}
             onChange={handlePaginationChange}
-            total={games?.count}
+            total={total || 1}
             color='danger'
             size='lg'
             className='flex justify-center items-center mt-12'

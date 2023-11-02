@@ -1,18 +1,18 @@
 'use client';
 
-import { Button } from '@nextui-org/react';
-import { redirect } from 'next/navigation';
+import { Button } from '@nextui-org/button';
+import { useRouter } from 'next/navigation';
 
 const Error = () => {
-  const handleButtonClick = () => {
-    redirect('/');
-  };
+  const router = useRouter();
 
   return (
     <div className='flex flex-col items-center justify-center py-24'>
       <div className='text-center'>
         <h1 className='headingText mb-4'>Oops! Something went wrong.</h1>
-        <Button onClick={handleButtonClick}>Back to Home</Button>
+        <Button onClick={() => router.push('/')} color='danger' variant='shadow'>
+          Back to Home
+        </Button>
       </div>
     </div>
   );

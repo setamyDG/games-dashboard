@@ -18,6 +18,9 @@ const NextWeek = async ({ searchParams }: Props) => {
   const games = await getNextWeekGames(getUrl);
   const session = await getServerSession();
 
+  console.log('getUrl', getUrl);
+  console.log('games', games);
+
   if (!session) {
     redirect('/sign-in');
   }
