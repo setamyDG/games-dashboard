@@ -106,7 +106,12 @@ const SignInForm = (): JSX.Element => {
         </form>
       </Form>
       <Divider />
-      <Button color='danger' variant='bordered' startContent={<GoogleCircleFilled />} onClick={() => signIn('google')}>
+      <Button
+        color='danger'
+        variant='bordered'
+        startContent={<GoogleCircleFilled />}
+        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })}
+      >
         Sign up with Google
       </Button>
       <Button
