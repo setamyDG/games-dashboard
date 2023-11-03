@@ -24,13 +24,13 @@ const HomePage = async ({ searchParams }: Props) => {
   }
 
   return (
-    <>
+    <section>
       <div className='flex gap-8 items-center'>
         <Image alt='homeIconPage' src='/door.svg' width={30} height={30} />
         <h1 className='headingText'>New and trending</h1>
       </div>
       <NewGamesList games={games} isSearch />
-    </>
+    </section>
   );
 };
 

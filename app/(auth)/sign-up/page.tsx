@@ -8,7 +8,7 @@ const SignUp = (): JSX.Element => (
         src='/images/one1.jpeg' // Replace with the actual image path
         alt='Cover Image'
         fill
-        objectFit='cover'
+        className='object-cover'
       />
     </div>
     <div className='flex-1'>

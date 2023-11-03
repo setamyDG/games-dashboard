@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Navbar, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@nextui-org/navbar';
@@ -39,19 +38,17 @@ export const Header = (): JSX.Element => {
         return (
           <NavbarItem key={title}>
             <Dropdown showArrow>
-              <NavbarItem>
-                <DropdownTrigger>
-                  <Button
-                    color={pathname.includes(firstWordInTitle) ? 'danger' : 'default'}
-                    disableRipple
-                    className='p-0 bg-transparent data-[hover=true]:bg-transparent'
-                    endContent={<ChevronDownIcon />}
-                    variant='light'
-                  >
-                    {title}
-                  </Button>
-                </DropdownTrigger>
-              </NavbarItem>
+              <DropdownTrigger>
+                <Button
+                  color={pathname.includes(firstWordInTitle) ? 'danger' : 'default'}
+                  disableRipple
+                  className='p-0 bg-transparent data-[hover=true]:bg-transparent'
+                  endContent={<ChevronDownIcon />}
+                  variant='light'
+                >
+                  {title}
+                </Button>
+              </DropdownTrigger>
               <DropdownMenu
                 color='danger'
                 variant='shadow'

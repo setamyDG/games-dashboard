@@ -9,7 +9,7 @@ const SignIn = (): JSX.Element => (
       <Image
         src={imgUrl} // Replace with the actual image path
         alt='Cover Image'
-        objectFit='cover'
+        className='object-cover'
         fill
       />
     </div>
