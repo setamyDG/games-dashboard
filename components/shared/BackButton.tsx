@@ -12,10 +12,9 @@ export const BackButton = () => {
       className='text-white'
       variant='shadow'
       color='warning'
+      isIconOnly
       onClick={() => router.back()}
       startContent={<ArrowLeftOutlined />}
-    >
-      Back
-    </Button>
+    />
   );
 };
