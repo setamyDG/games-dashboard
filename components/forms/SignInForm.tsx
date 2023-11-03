@@ -3,21 +3,21 @@
 import { GoogleCircleFilled, GithubOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@nextui-org/button';
-import { Chip, CircularProgress, Divider } from '@nextui-org/react';
+import { Chip, CircularProgress, Divider, Input } from '@nextui-org/react';
+import { EnvelopeClosedIcon, EyeClosedIcon, EyeOpenIcon, LockClosedIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
-import { Input } from '../ui/input';
+import { Form, FormField, FormItem, FormMessage } from '../ui/form';
 import { UserValidation } from '@/validations/user.form';
 
 const SignInForm = (): JSX.Element => {
   const [errorMessage, setErrorMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const router = useRouter();
   const form = useForm({
@@ -27,6 +27,10 @@ const SignInForm = (): JSX.Element => {
       password: '',
     },
   });
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prevState) => !prevState);
+  };
 
   const onSubmit = async (data: z.infer<typeof UserValidation>) => {
     try {
@@ -68,7 +72,7 @@ const SignInForm = (): JSX.Element => {
             <span className='text-xs  text-red-500 font-semibold'>Error: {errorMessage}</span>
           )}
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name='email'
             render={({ field }) => (
@@ -80,16 +84,36 @@ const SignInForm = (): JSX.Element => {
                 <FormMessage />
               </FormItem>
             )}
+          /> */}
+          <FormField
+            control={form.control}
+            name='email'
+            render={({ field }) => (
+              <FormItem className='mb-4'>
+                <Input startContent={<EnvelopeClosedIcon />} type='email' label='Email' {...field} size='sm' />
+                <FormMessage />
+              </FormItem>
+            )}
           />
           <FormField
             control={form.control}
             name='password'
             render={({ field }) => (
               <FormItem className='mb-4'>
-                <FormLabel className=''>Password</FormLabel>
-                <FormControl>
-                  <Input type='password' {...field} />
-                </FormControl>
+                <Input
+                  startContent={<LockClosedIcon />}
+                  endContent={
+                    isPasswordVisible ? (
+                      <EyeOpenIcon className='hover:cursor-pointer' onClick={togglePasswordVisibility} />
+                    ) : (
+                      <EyeClosedIcon className='hover:cursor-pointer' onClick={togglePasswordVisibility} />
+                    )
+                  }
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  label='Password'
+                  {...field}
+                  size='sm'
+                />
                 <FormMessage />
               </FormItem>
             )}

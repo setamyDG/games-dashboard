@@ -2,8 +2,16 @@
 
 import { GoogleCircleFilled, GithubOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Chip, CircularProgress, Divider } from '@nextui-org/react';
-import { ChevronLeftIcon } from '@radix-ui/react-icons';
+import { Button, Chip, CircularProgress, Divider, Input } from '@nextui-org/react';
+import {
+  ChevronLeftIcon,
+  EnvelopeClosedIcon,
+  EyeClosedIcon,
+  EyeOpenIcon,
+  IdCardIcon,
+  LockClosedIcon,
+  RocketIcon,
+} from '@radix-ui/react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,8 +19,7 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
-import { Input } from '../ui/input';
+import { Form, FormField, FormItem, FormMessage } from '../ui/form';
 import { checkIfUserExists, createUser } from '@/actions/user.actions';
 import { UserValidationCreate } from '@/validations/user.form';
 
@@ -20,6 +27,11 @@ const SignUpForm = (): JSX.Element => {
   const router = useRouter();
   const [errorMessage, setErrorMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prevState) => !prevState);
+  };
 
   const form = useForm({
     resolver: zodResolver(UserValidationCreate),
@@ -85,10 +97,7 @@ const SignUpForm = (): JSX.Element => {
             name='name'
             render={({ field }) => (
               <FormItem className='mb-4'>
-                <FormLabel className=''>Name</FormLabel>
-                <FormControl className=''>
-                  <Input {...field} />
-                </FormControl>
+                <Input startContent={<IdCardIcon />} label='Name' {...field} size='sm' />
                 <FormMessage />
               </FormItem>
             )}
@@ -98,10 +107,7 @@ const SignUpForm = (): JSX.Element => {
             name='email'
             render={({ field }) => (
               <FormItem className='mb-4'>
-                <FormLabel className=''>Email</FormLabel>
-                <FormControl className=''>
-                  <Input {...field} />
-                </FormControl>
+                <Input startContent={<EnvelopeClosedIcon />} type='email' label='Email' {...field} size='sm' />
                 <FormMessage />
               </FormItem>
             )}
@@ -111,10 +117,20 @@ const SignUpForm = (): JSX.Element => {
             name='password'
             render={({ field }) => (
               <FormItem className='mb-4'>
-                <FormLabel className=''>Password</FormLabel>
-                <FormControl>
-                  <Input type='password' {...field} />
-                </FormControl>
+                <Input
+                  startContent={<LockClosedIcon />}
+                  endContent={
+                    isPasswordVisible ? (
+                      <EyeOpenIcon className='hover:cursor-pointer' onClick={togglePasswordVisibility} />
+                    ) : (
+                      <EyeClosedIcon className='hover:cursor-pointer' onClick={togglePasswordVisibility} />
+                    )
+                  }
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  label='Password'
+                  {...field}
+                  size='sm'
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -124,10 +140,20 @@ const SignUpForm = (): JSX.Element => {
             name='repeatPassword'
             render={({ field }) => (
               <FormItem className='mb-4'>
-                <FormLabel className=''>Repeat password</FormLabel>
-                <FormControl>
-                  <Input type='password' {...field} />
-                </FormControl>
+                <Input
+                  startContent={<LockClosedIcon />}
+                  endContent={
+                    isPasswordVisible ? (
+                      <EyeOpenIcon className='hover:cursor-pointer' onClick={togglePasswordVisibility} />
+                    ) : (
+                      <EyeClosedIcon className='hover:cursor-pointer' onClick={togglePasswordVisibility} />
+                    )
+                  }
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  label='Repeat password'
+                  {...field}
+                  size='sm'
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -140,7 +166,7 @@ const SignUpForm = (): JSX.Element => {
               </Chip>
             </Link>
           </div>
-          <Button variant='shadow' type='submit' color='danger' className='w-full mt-8'>
+          <Button endContent={<RocketIcon />} variant='shadow' type='submit' color='danger' className='w-full mt-8'>
             Create account
           </Button>
         </form>
