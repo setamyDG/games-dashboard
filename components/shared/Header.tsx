@@ -128,7 +128,7 @@ export const Header = (): JSX.Element => {
   );
 
   return (
-    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} className='px-0 md:px-8'>
+    <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} className='px-0 md:px-8 z-50'>
       <NavbarContent className='flex md:hidden' justify='start'>
         <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} />
       </NavbarContent>

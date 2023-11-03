@@ -10,21 +10,19 @@ type Props = {
   screenShots: operations['games_screenshots_list']['responses']['200']['content']['application/json'];
 };
 
-export const Screenshots = ({ screenShots }: Props) => {
-  return (
-    <PhotoProvider>
-      {screenShots.results.map((screenShot) => (
-        <PhotoView key={screenShot.id} src={screenShot.image as string}>
-          <Image
-            src={screenShot.image as string}
-            width={400}
-            height={300}
-            priority
-            alt={String(screenShot?.id)}
-            className='rounded-xl cursor-pointer'
-          />
-        </PhotoView>
-      ))}
-    </PhotoProvider>
-  );
-};
+export const Screenshots = ({ screenShots }: Props) => (
+  <PhotoProvider>
+    {screenShots.results.map((screenShot) => (
+      <PhotoView key={screenShot.id} src={screenShot.image as string}>
+        <Image
+          src={screenShot.image as string}
+          width={1920}
+          height={1080}
+          priority
+          alt={String(screenShot?.id)}
+          className='rounded-xl cursor-pointer object-cover'
+        />
+      </PhotoView>
+    ))}
+  </PhotoProvider>
+);
