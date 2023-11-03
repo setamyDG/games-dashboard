@@ -1,8 +1,9 @@
 'use client';
 
-import { GoogleCircleFilled, GithubOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { GoogleCircleFilled, GithubOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CircularProgress } from '@nextui-org/react';
+import { Button, Chip, CircularProgress, Divider } from '@nextui-org/react';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -10,10 +11,8 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
-import { Separator } from '../ui/separator';
 import { checkIfUserExists, createUser } from '@/actions/user.actions';
 import { UserValidationCreate } from '@/validations/user.form';
 
@@ -65,8 +64,12 @@ const SignUpForm = (): JSX.Element => {
 
   return (
     <>
-      <ArrowLeftOutlined
-        className='text-lg mb-4 w-fit cursor-pointer text-red-500'
+      <Button
+        className='text-white mb-4'
+        variant='shadow'
+        color='warning'
+        isIconOnly
+        startContent={<ChevronLeftIcon />}
         onClick={() => router.push('/sign-in')}
       />
       <div className='mb-4'>
@@ -132,27 +135,31 @@ const SignUpForm = (): JSX.Element => {
           <div className='flex justify-end items-center text-xs'>
             <span className=' text-gray-400'>Already have an account ? </span>
             <Link href='/sign-in' className='font-semibold text-red-500 ml-2'>
-              Login
+              <Chip color='warning' variant='shadow' className='text-white'>
+                Sign in
+              </Chip>
             </Link>
           </div>
-          <Button type='submit' className='w-full mt-8'>
-            Create Account
+          <Button variant='shadow' type='submit' color='danger' className='w-full mt-8'>
+            Create account
           </Button>
         </form>
       </Form>
-      <Separator />
+      <Divider />
       <Button
+        color='danger'
+        variant='bordered'
+        startContent={<GoogleCircleFilled />}
         onClick={() => signIn('google', { callbackUrl: '/' })}
-        className='bg-white border border-black text-black hover:bg-gray-100'
       >
-        <GoogleCircleFilled className='mr-4 text-xl' />
         Sign up with Google
       </Button>
       <Button
+        startContent={<GithubOutlined />}
+        color='danger'
+        variant='bordered'
         onClick={() => signIn('github', { callbackUrl: '/' })}
-        className='bg-white border border-black text-black hover:bg-gray-100'
       >
-        <GithubOutlined className='mr-4 text-xl' />
         Sign up with Github
       </Button>
     </>

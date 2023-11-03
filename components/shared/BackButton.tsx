@@ -8,7 +8,13 @@ import React from 'react';
 export const BackButton = () => {
   const router = useRouter();
   return (
-    <Button variant='shadow' color='warning' onClick={() => router.back()} startContent={<ArrowLeftOutlined />}>
+    <Button
+      className='text-white'
+      variant='shadow'
+      color='warning'
+      onClick={() => router.back()}
+      startContent={<ArrowLeftOutlined />}
+    >
       Back
     </Button>
   );

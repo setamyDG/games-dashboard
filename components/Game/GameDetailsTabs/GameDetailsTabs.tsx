@@ -2,7 +2,7 @@
 
 import { Card, CardBody } from '@nextui-org/card';
 import { Tabs, Tab } from '@nextui-org/tabs';
-import { RocketIcon, ComponentNoneIcon, ChatBubbleIcon, MixIcon, SketchLogoIcon } from '@radix-ui/react-icons';
+import { ComponentNoneIcon, ChatBubbleIcon, MixIcon, SketchLogoIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { AchievementCard } from '../AchievementCard/AchievementCard';
 import { GameCard } from '../GameCard/GameCard';

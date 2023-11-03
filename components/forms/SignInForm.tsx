@@ -3,7 +3,7 @@
 import { GoogleCircleFilled, GithubOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@nextui-org/button';
-import { CircularProgress, Divider } from '@nextui-org/react';
+import { Chip, CircularProgress, Divider } from '@nextui-org/react';
 import Link from 'next/link';
 // import { useRouter } from 'next/navigation';
 import { useRouter } from 'next/navigation';
@@ -97,10 +97,12 @@ const SignInForm = (): JSX.Element => {
           <div className='flex justify-end items-center text-xs'>
             <p className='text-gray-400'>Dont have account ? </p>
             <Link href='/sign-up' className='font-semibold text-red-500 ml-2'>
-              Create Account
+              <Chip color='warning' variant='shadow' className='text-white'>
+                Create account
+              </Chip>
             </Link>
           </div>
-          <Button type='submit' color='danger' className='w-full mt-8'>
+          <Button variant='shadow' type='submit' color='danger' className='w-full mt-8'>
             Login
           </Button>
         </form>
@@ -110,7 +112,7 @@ const SignInForm = (): JSX.Element => {
         color='danger'
         variant='bordered'
         startContent={<GoogleCircleFilled />}
-        onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/' })}
+        onClick={() => signIn('google', { callbackUrl: '/' })}
       >
         Sign up with Google
       </Button>
@@ -118,7 +120,7 @@ const SignInForm = (): JSX.Element => {
         startContent={<GithubOutlined />}
         color='danger'
         variant='bordered'
-        onClick={() => signIn('github', { callbackUrl: 'http://localhost:3000/' })}
+        onClick={() => signIn('github', { callbackUrl: '/' })}
       >
         Sign up with Github
       </Button>
