@@ -176,7 +176,7 @@ export const Header = (): JSX.Element => {
         </NavbarContent>
       )}
 
-      <NavbarMenu className='hidden md:block items-center w-full'>{renderMobileItems()}</NavbarMenu>
+      <NavbarMenu className='hidden md:block items-center w-full z-[999]'>{renderMobileItems()}</NavbarMenu>
     </Navbar>
   );
 };

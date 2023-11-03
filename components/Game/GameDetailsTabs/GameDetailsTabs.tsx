@@ -2,7 +2,7 @@
 
 import { Card, CardBody } from '@nextui-org/card';
 import { Tabs, Tab } from '@nextui-org/tabs';
-import { RocketIcon, ComponentNoneIcon } from '@radix-ui/react-icons';
+import { RocketIcon, ComponentNoneIcon, ChatBubbleIcon, MixIcon, SketchLogoIcon } from '@radix-ui/react-icons';
 import React from 'react';
 import { AchievementCard } from '../AchievementCard/AchievementCard';
 import { GameCard } from '../GameCard/GameCard';
@@ -30,7 +30,7 @@ export const GameDetailsTabs = ({ about, gameSeries, gameAchievements }: Props) 
           key='photos'
           title={
             <div className='flex items-center space-x-2'>
-              <RocketIcon />
+              <ChatBubbleIcon className='w-[20px] h-[20px]' />
               <span>About</span>
             </div>
           }
@@ -43,7 +43,7 @@ export const GameDetailsTabs = ({ about, gameSeries, gameAchievements }: Props) 
           key='music'
           title={
             <div className='flex items-center space-x-2'>
-              <RocketIcon />
+              <MixIcon className='w-[20px] h-[20px]' />
               <span>Related games</span>
             </div>
           }
@@ -62,7 +62,7 @@ export const GameDetailsTabs = ({ about, gameSeries, gameAchievements }: Props) 
           key='videos'
           title={
             <div className='flex items-center space-x-2'>
-              <RocketIcon />
+              <SketchLogoIcon className='w-[20px] h-[20px]' />
               <span>Achievements</span>
             </div>
           }
