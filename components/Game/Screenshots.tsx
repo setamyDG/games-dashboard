@@ -20,7 +20,7 @@ export const Screenshots = ({ screenShots }: Props) => (
           height={1080}
           priority
           alt={String(screenShot?.id)}
-          className='rounded-xl cursor-pointer object-cover'
+          className='rounded-xl cursor-pointer object-cover hover:scale-105 ease-in-out duration-300'
         />
       </PhotoView>
     ))}
