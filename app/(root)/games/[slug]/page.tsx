@@ -8,7 +8,6 @@ import { BuyButton } from '@/components/Game/BuyButton/BuyButton';
 import { FavoriteButton } from '@/components/Game/FavoriteButton/FavoriteButton';
 import { GameDetailsTabs } from '@/components/Game/GameDetailsTabs/GameDetailsTabs';
 import { Platforms } from '@/components/Game/Platforms/Platforms';
-import { RatingChart } from '@/components/Game/RatingChart/RatingChart';
 import { Screenshots } from '@/components/Game/Screenshots';
 import { BackButton } from '@/components/shared/BackButton';
 import 'react-photo-view/dist/react-photo-view.css';
@@ -30,7 +29,6 @@ const GamePage = async ({ params }: Props) => {
   const { slug } = params;
 
   const game = await getGame(slug);
-  console.log('game', game);
   const screenShots = await getGameScreenShots(slug);
   const gameSeries = await getGameSeries(slug);
   const gameAchievements = await getGameAchievements(slug);
@@ -42,7 +40,6 @@ const GamePage = async ({ params }: Props) => {
         <div className='absolute top-0'>
           <BackButton />
         </div>
-        <RatingChart />
         <div className='flex items-center gap-2'>
           <h1 className='text-2xl md:text-4xl font-bold '>{game?.name}</h1>
           <div className='flex items-center justify-center ml-2 md:ml-8 rounded-full h-12 w-12 border-2 border-red-500'>
