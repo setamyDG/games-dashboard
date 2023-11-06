@@ -1,9 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { connectToDb } from '@/lib/mongodb';
 import User from '@/models/user.model';
 
-export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
     await connectToDb();
     const user = await User.find({});
@@ -13,6 +13,6 @@ export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
       return NextResponse.json({ error: 'user not found' }, { status: 404 });
     }
   } catch (error) {
-    return res.status(500).json({ error: 'cannot connect to db' });
+    return NextResponse.json({ error: 'user not found' }, { status: 404 });
   }
 };
