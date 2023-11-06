@@ -1,16 +1,19 @@
 import { Button } from '@nextui-org/button';
 import { Tooltip } from '@nextui-org/tooltip';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getGame, getGameScreenShots, getGameSeries, getGameAchievements } from '@/actions/games.actions';
+// import { User, fetchUsers } from '@/actions/user.actions';
 import { Background } from '@/components/Game/Background/Background';
 import { BuyButton } from '@/components/Game/BuyButton/BuyButton';
-import { FavoriteButton } from '@/components/Game/FavoriteButton/FavoriteButton';
 import { GameDetailsTabs } from '@/components/Game/GameDetailsTabs/GameDetailsTabs';
+// import { GameFavoriteButton } from '@/components/Game/GameFavoriteButton/GameFavoriteButton';
 import { Platforms } from '@/components/Game/Platforms/Platforms';
 import { Screenshots } from '@/components/Game/Screenshots';
-import { BackButton } from '@/components/shared/BackButton';
 import 'react-photo-view/dist/react-photo-view.css';
+import { BackButton } from '@/components/shared/BackButton';
 
 type Props = {
   params: {
@@ -27,11 +30,18 @@ export const generateMetadata = async ({ params }: Props) => {
 
 const GamePage = async ({ params }: Props) => {
   const { slug } = params;
-
+  const session = await getServerSession();
   const game = await getGame(slug);
   const screenShots = await getGameScreenShots(slug);
   const gameSeries = await getGameSeries(slug);
   const gameAchievements = await getGameAchievements(slug);
+  // const users: User[] = await fetchUsers();
+
+  // const user = users.filter((user) => user.email === (session?.user?.email as string));
+
+  if (!session) {
+    redirect('/sign-in');
+  }
 
   return (
     <>
@@ -59,7 +69,7 @@ const GamePage = async ({ params }: Props) => {
             <span className='text-red-500 underline underline-offset-2'>TOP 2023</span>
           </div>
           <div className='flex gap-4 items-center md:contents'>
-            <FavoriteButton />
+            {/* <GameFavoriteButton game={game} user={user[0]} /> */}
             <Tooltip content='Visit official game page' showArrow color='secondary'>
               <Link href={game?.website as string}>
                 <Button variant='shadow' color='secondary'>

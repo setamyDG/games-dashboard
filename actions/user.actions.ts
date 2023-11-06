@@ -68,10 +68,10 @@ export const removeFavoriteGame = async (email: string, game: Game): Promise<voi
   try {
     await connectToDb();
     await User.findOneAndUpdate({ email }, { $pull: { favorites: game } });
-    revalidateTag('users');
   } catch (error) {
     console.log('Error removing favorite game: ', error);
   }
+  revalidateTag('users');
 };
 
 export type User = {
@@ -85,10 +85,10 @@ export const updateBackgroundImage = async (email: string, backgroundImage: stri
   try {
     await connectToDb();
     await User.findOneAndUpdate({ email }, { $set: { backgroundImage } }, { new: true });
-    revalidateTag('users');
   } catch (error) {
     console.log('Error updating background image: ', error);
   }
+  revalidateTag('users');
 };
 
 export const fetchUsers = async () => {

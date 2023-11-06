@@ -3,5 +3,5 @@ import { GamesResult } from '@/customTypes/general';
 
 export type Props = {
   games: GamesResult;
-  user?: User;
+  user: User;
 };
