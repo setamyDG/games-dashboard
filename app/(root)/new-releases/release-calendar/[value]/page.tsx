@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getReleaseMothsCalendarGames } from '@/actions/games.actions';
+import { User, fetchUsers } from '@/actions/user.actions';
 import { MonthsLinks } from '@/components/shared/MonthLinks';
 import { NewGamesList } from '@/components/shared/NewGamesList/NewGamesList';
 import { generateUrlFromQuery } from '@/utils/methots';
@@ -23,6 +24,8 @@ const ReleaseCalendar = async ({ searchParams, params }: Props) => {
   const getUrl = generateUrlFromQuery(searchParams);
   const games = await getReleaseMothsCalendarGames(getUrl);
   const session = await getServerSession();
+  const users: User[] = await fetchUsers();
+  const user = users.filter((user) => user.email === (session?.user?.email as string));
 
   if (!session) {
     redirect('/sign-in');
@@ -35,7 +38,7 @@ const ReleaseCalendar = async ({ searchParams, params }: Props) => {
         <h1 className='headingText'>{params.value}</h1>
       </div>
       <MonthsLinks />
-      <NewGamesList games={games} />
+      <NewGamesList games={games} user={user[0]} />
     </>
   );
 };

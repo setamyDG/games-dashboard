@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { connectToDb } from '@/lib/mongodb';
 import User from '@/models/user.model';
 
-export const GET = async (_: NextApiRequest, res: NextApiResponse) => {
+export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     await connectToDb();
     const user = await User.find({});

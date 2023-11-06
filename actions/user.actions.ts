@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { revalidateTag } from 'next/cache';
 import { Game } from '@/customTypes/general';
 import { connectToDb } from '@/lib/mongodb';
+import { baseUrl } from '@/lib/utils';
 import User from '@/models/user.model';
 
 type CreateUserParams = {
@@ -88,4 +89,20 @@ export const updateBackgroundImage = async (email: string, backgroundImage: stri
   } catch (error) {
     console.log('Error updating background image: ', error);
   }
+};
+
+export const fetchUsers = async () => {
+  const response = await fetch(`${baseUrl}/api/user`, {
+    next: {
+      tags: ['users'],
+    },
+  });
+
+  if (!response.ok) {
+    console.log('response', response);
+
+    throw new Error('Something went wrong');
+  }
+
+  return response.json();
 };

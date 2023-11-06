@@ -4,12 +4,12 @@ import React from 'react';
 import { User } from '@/actions/user.actions';
 import { ChangeBackground } from '@/components/ChangeBackground/ChangeBackground';
 import { UserCollection } from '@/components/UserCollection/UserCollection';
+import { baseUrl } from '@/lib/utils';
 
 const fetchUsers = async () => {
-  const response = await fetch(`http://localhost:3000/api/user`, {
+  const response = await fetch(`${baseUrl}/api/user`, {
     next: {
       tags: ['users'],
-      revalidate: 0,
     },
   });
 
