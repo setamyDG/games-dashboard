@@ -1,7 +1,7 @@
 'use client';
 
 import { Navbar, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@nextui-org/navbar';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Divider } from '@nextui-org/react';
 import { User } from '@nextui-org/user';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
@@ -29,6 +29,7 @@ export const Header = (): JSX.Element => {
     'Popular in 2022': <Image alt='bestOfTheYearIcon' src='/chart.svg' width={24} height={24} />,
     'All time top 250': <Image alt='bestOfTheYearIcon' src='/win.svg' width={24} height={24} />,
     Platforms: <Image alt='bestOfTheYearIcon' src='/game.svg' width={24} height={24} />,
+    Profile: <Image alt='Profile' src='/game.svg' width={24} height={24} />,
   };
 
   const renderItems = () => (
@@ -173,7 +174,32 @@ export const Header = (): JSX.Element => {
         </NavbarContent>
       )}
 
-      <NavbarMenu className='hidden md:block items-center w-full z-[999]'>{renderMobileItems()}</NavbarMenu>
+      <NavbarMenu className='hidden md:block items-center w-full z-[999] text-center'>
+        {renderMobileItems()}
+        <Divider className='my-4' />
+        <NavbarItem className='flex flex-col'>
+          <Link
+            className={
+              pathname === '/'
+                ? 'text-[rgb(243,16,97)] text-sm mt-4'
+                : 'text-white hover:text-[rgb(243,16,97)] text-sm mt-4'
+            }
+            href='/'
+          >
+            Home
+          </Link>
+          <Link
+            className={
+              pathname === '/profile'
+                ? 'text-[rgb(243,16,97)] text-sm mt-4'
+                : 'text-white hover:text-[rgb(243,16,97)] text-sm mt-4'
+            }
+            href='/profile'
+          >
+            Profile
+          </Link>
+        </NavbarItem>
+      </NavbarMenu>
     </Navbar>
   );
 };

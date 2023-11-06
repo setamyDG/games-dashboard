@@ -60,19 +60,19 @@ export const ChangeBackground = ({ user }: Props) => {
           </Button>
         </Tooltip>
         <Modal
-          size='5xl'
           placement='center'
           backdrop='blur'
           isOpen={isModalVisible}
           onOpenChange={toggleModalVisibility}
           scrollBehavior='inside'
+          size='5xl'
         >
           <ModalContent>
             {(onClose) => (
               <>
                 <ModalHeader className='flex gap-1'>Change your style</ModalHeader>
                 <ModalBody className='flex'>
-                  <div className='flex flex-wrap gap-4 items-center'>
+                  <div className='flex flex-wrap gap-4 items-center justify-center'>
                     {images.map((image) => (
                       <div key={image}>
                         <Tooltip content='Click to select' placement='top' showArrow color='danger'>

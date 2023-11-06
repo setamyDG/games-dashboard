@@ -19,4 +19,5 @@ export const routes = {
   rpg: '/genres/rpg',
   shooter: '/genres/shooter',
   sport: '/genres/sport',
+  profile: '/profile',
 };
