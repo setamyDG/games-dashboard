@@ -31,7 +31,7 @@ const NextWeek = async ({ searchParams }: Props) => {
         <Image alt='nextWeekIconPage' src='/next-week.svg' width={30} height={30} />
         <h1 className='headingText'>Next week</h1>
       </div>
-      <NewGamesList games={games} isSearch />
+      <NewGamesList games={games} />
     </>
   );
 };

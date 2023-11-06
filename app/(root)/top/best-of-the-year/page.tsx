@@ -27,7 +27,7 @@ const BestOfTheYear = async ({ searchParams }: Props) => {
         <Image alt='winIconPage' src='/win.svg' width={30} height={30} />
         <h1 className='headingText'>Best of the year</h1>
       </div>
-      <NewGamesList games={games} withoutOrdering isSearch />
+      <NewGamesList games={games} />
     </>
   );
 };

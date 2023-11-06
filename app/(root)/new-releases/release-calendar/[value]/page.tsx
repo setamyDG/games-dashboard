@@ -35,7 +35,7 @@ const ReleaseCalendar = async ({ searchParams, params }: Props) => {
         <h1 className='headingText'>{params.value}</h1>
       </div>
       <MonthsLinks />
-      <NewGamesList games={games} withoutOrdering />
+      <NewGamesList games={games} />
     </>
   );
 };

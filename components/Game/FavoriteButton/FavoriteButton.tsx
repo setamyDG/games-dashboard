@@ -3,18 +3,59 @@
 import { Button } from '@nextui-org/button';
 import { Tooltip } from '@nextui-org/tooltip';
 import { HeartIcon, HeartFilledIcon } from '@radix-ui/react-icons';
-import React, { useState } from 'react';
 
-export const FavoriteButton = (): JSX.Element => {
-  const [isFavorite, setIsFavorite] = useState(false);
+type Props = {
+  isFavorite: boolean;
+  isLoading: boolean;
+  handleAddToFavorites: () => void;
+  handleRemoveFromFavorites: () => void;
+};
 
-  const handleAddToFavorites = () => {
-    setIsFavorite((prev) => !prev);
-  };
+export const FavoriteButton = ({
+  isFavorite,
+  isLoading,
+  handleAddToFavorites,
+  handleRemoveFromFavorites,
+}: Props): JSX.Element => {
+  // const [isFavorite, setIsFavorite] = useState<boolean>(
+  //   user?.favorites?.some((favorite) => favorite.id === game.id) || false,
+  // );
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // const handleAddToFavorites = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     await addFavoriteGame(user?.email as string, game);
+  //     setIsFavorite(true);
+  //   } catch (error) {
+  //     console.error('Error adding to favorites', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // const handleRemoveFromFavorites = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     await removeFavoriteGame(user?.email as string, game);
+  //     setIsFavorite(false);
+  //   } catch (error) {
+  //     console.error('Error removing from favorites:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <Tooltip showArrow color='danger' content={isFavorite ? 'Unlike' : 'Like !'}>
-      <Button isIconOnly color='danger' variant='shadow' aria-label='Like' onClick={handleAddToFavorites}>
+      <Button
+        isLoading={isLoading}
+        isIconOnly
+        color='danger'
+        variant='shadow'
+        aria-label='Like'
+        onClick={() => (isFavorite ? handleRemoveFromFavorites() : handleAddToFavorites())}
+      >
         {isFavorite ? <HeartFilledIcon /> : <HeartIcon />}
       </Button>
     </Tooltip>

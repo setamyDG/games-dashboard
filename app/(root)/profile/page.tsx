@@ -1,19 +1,41 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
+import { User } from '@/actions/user.actions';
+import { ChangeBackground } from '@/components/ChangeBackground/ChangeBackground';
+import { UserCollection } from '@/components/UserCollection/UserCollection';
+
+const fetchUsers = async () => {
+  const response = await fetch(`http://localhost:3000/api/user`, {
+    next: {
+      tags: ['users'],
+      revalidate: 0,
+    },
+  });
+
+  if (!response.ok) {
+    console.log('response', response);
+
+    throw new Error('Something went wrong');
+  }
+
+  return response.json();
+};
 
 const ProfilePage = async () => {
   const session = await getServerSession();
+  const users: User[] = await fetchUsers();
 
   if (!session) {
     redirect('/sign-in');
   }
 
+  const user = users.filter((user) => user.email === (session?.user?.email as string));
+
   return (
     <>
-      <div className='flex gap-8 items-center'>
-        <h1 className='headingText'>Collection of favorite games</h1>
-      </div>
+      <ChangeBackground user={user[0]} />
+      <UserCollection user={user[0]} />
     </>
   );
 };

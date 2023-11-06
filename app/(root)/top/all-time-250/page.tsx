@@ -27,7 +27,7 @@ const AllTime250 = async ({ searchParams }: Props) => {
         <Image alt='crownIconPage' src='/crown.svg' width={30} height={30} />
         <h1 className='headingText'>All time 250 games</h1>
       </div>
-      <NewGamesList games={games} withoutOrdering isSearch />
+      <NewGamesList games={games} />
     </>
   );
 };

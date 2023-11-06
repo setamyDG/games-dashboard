@@ -28,7 +28,7 @@ const ThisWeek = async ({ searchParams }: Props) => {
         <Image alt='fireIconPage' src='/fire.svg' width={30} height={30} />
         <h1 className='headingText'>This week</h1>
       </div>
-      <NewGamesList games={games} isSearch />
+      <NewGamesList games={games} />
     </>
   );
 };

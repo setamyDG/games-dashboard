@@ -5,7 +5,7 @@ export const Background = ({ src }: Props) => (
   <div className='z-30'>
     <div className='absolute top-0 left-0 w-full h-[500px] z-20'>
       <div className='h-[600px]'>
-        <div style={{ zIndex: 200, height: 600, backgroundColor: 'transparent' }}>
+        <div style={{ zIndex: 20, height: 600, backgroundColor: 'transparent' }}>
           <div className='relative h-full w-full'>
             <Image src={src} fill className='object-cover' alt='Background Image' />
             <div
