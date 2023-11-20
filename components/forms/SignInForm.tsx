@@ -51,7 +51,7 @@ const SignInForm = (): JSX.Element => {
         router.push('/');
       }
     } catch (error) {
-      console.log('Error: ', error);
+      throw new Error('Error signing in');
     }
     setIsLoading(false);
   };

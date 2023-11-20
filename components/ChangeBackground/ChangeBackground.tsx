@@ -33,7 +33,7 @@ export const ChangeBackground = ({ user }: Props) => {
       await updateBackgroundImage(user?.email as string, selectedBackground as string);
       toggleModalVisibility();
     } catch (error) {
-      console.error('Error updating background:', error);
+      throw new Error('Error updating background image');
     } finally {
       setIsLoading(false);
     }

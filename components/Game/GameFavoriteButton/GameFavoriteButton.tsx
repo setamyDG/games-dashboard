@@ -22,7 +22,7 @@ export const GameFavoriteButton = ({ user, game }: Props) => {
       await addFavoriteGame(user?.email as string, game);
       setIsFavorite(true);
     } catch (error) {
-      console.error('Error adding to favorites', error);
+      throw new Error('Error adding to favorites');
     } finally {
       setIsLoading(false);
     }
@@ -34,7 +34,7 @@ export const GameFavoriteButton = ({ user, game }: Props) => {
       await removeFavoriteGame(user?.email as string, game);
       setIsFavorite(false);
     } catch (error) {
-      console.error('Error removing from favorites:', error);
+      throw new Error('Error removing from favorites');
     } finally {
       setIsLoading(false);
     }

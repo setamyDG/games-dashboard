@@ -6,9 +6,9 @@ export const AchievementCard = ({ achievement }: Props): JSX.Element => (
     <Image
       src={achievement?.image || '/game.svg'}
       alt={achievement?.name as string}
-      width={1920}
-      height={1080}
-      className='rounded-tr-lg rounded-tl-lg object-cover h-48'
+      width={400}
+      height={300}
+      className='rounded-tr-lg rounded-tl-lg object-cover h-48 w-full'
     />
     <div className='flex flex-col p-4 bg-neutral-800 rounded-br-lg rounded-bl-lg h-32 text-sm'>
       <div className='flex items-center justify-between'>

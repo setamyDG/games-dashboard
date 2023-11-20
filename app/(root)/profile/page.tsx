@@ -14,8 +14,6 @@ const fetchUsers = async () => {
   });
 
   if (!response.ok) {
-    console.log('response', response);
-
     throw new Error('Something went wrong');
   }
 

@@ -61,7 +61,7 @@ const SignUpForm = (): JSX.Element => {
       });
       router.push('/sign-in');
     } catch (error) {
-      console.log('Error: ', error);
+      throw new Error('Error creating user');
     }
     setIsLoading(false);
   };

@@ -21,9 +21,6 @@ const NextWeek = async ({ searchParams }: Props) => {
   const users: User[] = await fetchUsers();
   const user = users.filter((user) => user.email === (session?.user?.email as string));
 
-  console.log('getUrl', getUrl);
-  console.log('games', games);
-
   if (!session) {
     redirect('/sign-in');
   }

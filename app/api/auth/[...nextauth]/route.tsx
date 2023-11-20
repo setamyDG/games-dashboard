@@ -27,15 +27,13 @@ const authOptions: NextAuthOptions = {
           const user = await User.findOne({ email });
           const passwordsMatch = await bcrypt.compare(password, user.password);
 
-          console.log('User: ', user);
-
           if (!user || user === null || !passwordsMatch) {
             return null;
           } else {
             return user;
           }
         } catch (error) {
-          console.log('Error: ', error);
+          throw new Error('Error logging in');
         }
       },
     }),

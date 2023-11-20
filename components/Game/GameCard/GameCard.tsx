@@ -26,7 +26,7 @@ export const GameCard = ({ game, user }: Props): JSX.Element => {
       await addFavoriteGame(user?.email as string, game);
       setIsFavorite(true);
     } catch (error) {
-      console.error('Error adding to favorites', error);
+      throw new Error('Error adding to favorites');
     } finally {
       setIsLoading(false);
     }
@@ -38,7 +38,7 @@ export const GameCard = ({ game, user }: Props): JSX.Element => {
       await removeFavoriteGame(user?.email as string, game);
       setIsFavorite(false);
     } catch (error) {
-      console.error('Error removing from favorites:', error);
+      throw new Error('Error removing from favorites');
     } finally {
       setIsLoading(false);
     }
@@ -53,10 +53,10 @@ export const GameCard = ({ game, user }: Props): JSX.Element => {
       <Image
         src={game?.background_image || '/game.svg'}
         alt={game?.name as string}
-        width={1920}
-        height={1080}
+        width={400}
+        height={300}
         priority
-        className='h-full object-cover'
+        className='h-full object-cover w-full'
       />
       <div className='absolute top-2 right-2 flex gap-2 items-center flex-col drop-shadow-[2px_3px_4px_#373737]'>
         <div className='flex gap-2'>

@@ -27,7 +27,7 @@ export const createUser = async (payload: CreateUserParams): Promise<void> => {
       image: '',
     });
   } catch (error) {
-    console.log('Error creating user: ', error);
+    throw new Error('Error creating user');
   }
 };
 
@@ -41,7 +41,7 @@ export const checkIfUserExists = async (email: string): Promise<boolean> => {
       return false;
     }
   } catch (error) {
-    console.log('Error checking if user exists: ', error);
+    throw new Error('Error checking if user exists');
   }
 
   return false;
@@ -60,7 +60,7 @@ export const addFavoriteGame = async (email: string, game: Game): Promise<void> 
     );
     revalidateTag('users');
   } catch (error) {
-    console.log('Error adding favorite game: ', error);
+    throw new Error('Error adding favorite game');
   }
 };
 
@@ -69,7 +69,7 @@ export const removeFavoriteGame = async (email: string, game: Game): Promise<voi
     await connectToDb();
     await User.findOneAndUpdate({ email }, { $pull: { favorites: game } });
   } catch (error) {
-    console.log('Error removing favorite game: ', error);
+    throw new Error('Error removing favorite game');
   }
   revalidateTag('users');
 };
@@ -86,7 +86,7 @@ export const updateBackgroundImage = async (email: string, backgroundImage: stri
     await connectToDb();
     await User.findOneAndUpdate({ email }, { $set: { backgroundImage } }, { new: true });
   } catch (error) {
-    console.log('Error updating background image: ', error);
+    throw new Error('Error updating background image');
   }
   revalidateTag('users');
 };
@@ -99,8 +99,6 @@ export const fetchUsers = async () => {
   });
 
   if (!response.ok) {
-    console.log('response', response);
-
     throw new Error('Something went wrong');
   }
 

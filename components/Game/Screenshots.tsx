@@ -16,8 +16,8 @@ export const Screenshots = ({ screenShots }: Props) => (
       <PhotoView key={screenShot.id} src={screenShot.image as string}>
         <Image
           src={screenShot.image as string}
-          width={1920}
-          height={1080}
+          width={400}
+          height={300}
           priority
           alt={String(screenShot?.id)}
           className='rounded-xl cursor-pointer object-cover hover:scale-105 ease-in-out duration-300'
