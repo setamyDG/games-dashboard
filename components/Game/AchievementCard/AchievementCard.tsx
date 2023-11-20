@@ -8,6 +8,7 @@ export const AchievementCard = ({ achievement }: Props): JSX.Element => (
       alt={achievement?.name as string}
       width={400}
       height={300}
+      priority
       className='rounded-tr-lg rounded-tl-lg object-cover h-48 w-full'
     />
     <div className='flex flex-col p-4 bg-neutral-800 rounded-br-lg rounded-bl-lg h-32 text-sm'>

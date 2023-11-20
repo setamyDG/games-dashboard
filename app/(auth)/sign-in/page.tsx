@@ -11,12 +11,13 @@ const SignIn = (): JSX.Element => (
         alt='Cover Image'
         className='object-cover'
         fill
+        priority
       />
     </div>
     <div className='flex-1'>
       <div className='md:px-16 px-12 h-full flex flex-col gap-4 justify-center'>
         <div className='mb-4'>
-          <Image src='/next.svg' alt='logo' width={85} height={85} />
+          <Image src='/next.svg' alt='logo' width={85} height={85} priority />
         </div>
         <h1 className='font-bold text-4xl'>Login 🎮</h1>
         <p className='text-xl mb-4'>

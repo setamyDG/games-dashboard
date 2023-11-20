@@ -85,7 +85,7 @@ const SignUpForm = (): JSX.Element => {
         onClick={() => router.push('/sign-in')}
       />
       <div className='mb-4'>
-        <Image src='/next.svg' alt='logo' width={85} height={85} />
+        <Image src='/next.svg' alt='logo' width={85} height={85} priority />
       </div>
       <h1 className='font-bold text-4xl'>Welcome to setamyDG</h1>
       <p className='text-xl mb-4'>Register your account</p>

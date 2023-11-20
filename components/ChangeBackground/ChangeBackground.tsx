@@ -86,6 +86,7 @@ export const ChangeBackground = ({ user }: Props) => {
                             alt={`bgImage-${image}`}
                             width={310}
                             height={310}
+                            priority
                             onClick={() => setSelectedBackground(image)}
                           />
                         </Tooltip>

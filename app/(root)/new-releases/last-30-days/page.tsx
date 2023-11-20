@@ -35,7 +35,7 @@ const Last30Days = async ({ searchParams }: Props) => {
   return (
     <>
       <div className='flex gap-8 items-center'>
-        <Image alt='starIconPage' src='/star.svg' width={30} height={30} />
+        <Image alt='starIconPage' src='/star.svg' width={30} height={30} priority />
         <h1 className='headingText'>Last 30 days</h1>
       </div>
       <NewGamesList games={games} user={user[0]} />

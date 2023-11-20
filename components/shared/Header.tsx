@@ -21,15 +21,15 @@ export const Header = (): JSX.Element => {
   const pathname = usePathname();
 
   const titleIcons = {
-    'Last 30 days': <Image alt='bestOfTheYearIcon' src='/star.svg' width={24} height={24} />,
-    'This week': <Image alt='bestOfTheYearIcon' src='/fire.svg' width={24} height={24} />,
-    'Next week': <Image alt='bestOfTheYearIcon' src='/next-week.svg' width={24} height={24} />,
-    'Release calendar': <Image alt='bestOfTheYearIcon' src='/calendar.svg' width={24} height={24} />,
-    'Best of the year': <Image alt='bestOfTheYearIcon' src='/crown.svg' width={24} height={24} />,
-    'Popular in 2022': <Image alt='bestOfTheYearIcon' src='/chart.svg' width={24} height={24} />,
-    'All time top 250': <Image alt='bestOfTheYearIcon' src='/win.svg' width={24} height={24} />,
-    Platforms: <Image alt='bestOfTheYearIcon' src='/game.svg' width={24} height={24} />,
-    Profile: <Image alt='Profile' src='/game.svg' width={24} height={24} />,
+    'Last 30 days': <Image alt='bestOfTheYearIcon' src='/star.svg' width={24} height={24} priority />,
+    'This week': <Image alt='bestOfTheYearIcon' src='/fire.svg' width={24} height={24} priority />,
+    'Next week': <Image alt='bestOfTheYearIcon' src='/next-week.svg' width={24} height={24} priority />,
+    'Release calendar': <Image alt='bestOfTheYearIcon' src='/calendar.svg' width={24} height={24} priority />,
+    'Best of the year': <Image alt='bestOfTheYearIcon' src='/crown.svg' width={24} height={24} priority />,
+    'Popular in 2022': <Image alt='bestOfTheYearIcon' src='/chart.svg' width={24} height={24} priority />,
+    'All time top 250': <Image alt='bestOfTheYearIcon' src='/win.svg' width={24} height={24} priority />,
+    Platforms: <Image alt='bestOfTheYearIcon' src='/game.svg' width={24} height={24} priority />,
+    Profile: <Image alt='Profile' src='/game.svg' width={24} height={24} priority />,
   };
 
   const renderItems = () => (

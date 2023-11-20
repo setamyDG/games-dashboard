@@ -28,7 +28,7 @@ const PopularIn2022 = async ({ searchParams }: Props) => {
   return (
     <>
       <div className='flex gap-8 items-center'>
-        <Image alt='chartIconPage' src='/chart.svg' width={30} height={30} />
+        <Image alt='chartIconPage' src='/chart.svg' width={30} height={30} priority />
         <h1 className='headingText'>Popular in 2022</h1>
       </div>
       <NewGamesList games={games} user={user[0]} />

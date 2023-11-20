@@ -27,7 +27,7 @@ const AllTime250 = async ({ searchParams }: Props) => {
   return (
     <>
       <div className='flex gap-8 items-center'>
-        <Image alt='crownIconPage' src='/crown.svg' width={30} height={30} />
+        <Image alt='crownIconPage' src='/crown.svg' width={30} height={30} priority />
         <h1 className='headingText'>All time 250 games</h1>
       </div>
       <NewGamesList games={games} user={user[0]} />

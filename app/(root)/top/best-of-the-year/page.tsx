@@ -27,7 +27,7 @@ const BestOfTheYear = async ({ searchParams }: Props) => {
   return (
     <>
       <div className='flex gap-8 items-center'>
-        <Image alt='winIconPage' src='/win.svg' width={30} height={30} />
+        <Image alt='winIconPage' src='/win.svg' width={30} height={30} priority />
         <h1 className='headingText'>Best of the year</h1>
       </div>
       <NewGamesList games={games} user={user[0]} />

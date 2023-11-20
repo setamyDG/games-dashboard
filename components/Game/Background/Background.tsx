@@ -7,7 +7,7 @@ export const Background = ({ src }: Props) => (
       <div className='h-[600px]'>
         <div style={{ zIndex: 20, height: 600, backgroundColor: 'transparent' }}>
           <div className='relative h-full w-full'>
-            <Image src={src} fill className='object-cover' alt='Background Image' />
+            <Image src={src} fill className='object-cover' alt='Background Image' priority />
             <div
               className='absolute top-0 left-0 w-full h-full'
               style={{

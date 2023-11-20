@@ -16,7 +16,7 @@ const PlatformsPage = async () => {
   return (
     <>
       <div className='flex gap-8 items-center'>
-        <Image alt='gameIconPage' src='/game.svg' width={30} height={30} />
+        <Image alt='gameIconPage' src='/game.svg' width={30} height={30} priority />
         <h1 className='headingText'>Platforms</h1>
       </div>
       <PlatformsList platforms={platforms} />

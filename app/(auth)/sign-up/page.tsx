@@ -9,6 +9,7 @@ const SignUp = (): JSX.Element => (
         alt='Cover Image'
         fill
         className='object-cover'
+        priority
       />
     </div>
     <div className='flex-1'>

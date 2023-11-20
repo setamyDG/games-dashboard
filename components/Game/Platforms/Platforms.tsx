@@ -35,6 +35,7 @@ export const Platforms = ({ platforms }: Props): JSX.Element => {
             alt={platform?.platform?.name as string}
             width={20}
             height={20}
+            priority
           />
           <p className='text-white text-xs hidden xl:block'>
             {mappedNamesToPlatforms[platform?.platform?.name as keyof typeof mappedNamesToPlatforms]}
