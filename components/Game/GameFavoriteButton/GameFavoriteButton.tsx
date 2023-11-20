@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { User, addFavoriteGame, removeFavoriteGame } from '@/actions/user.actions';
-import { FavoriteButton } from '@/components/shared/FavoriteButton/FavoriteButton';
+import { FavoriteButton } from '@/components';
 import { Game } from '@/customTypes/general';
 
 type Props = {

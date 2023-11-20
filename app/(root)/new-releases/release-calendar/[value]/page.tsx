@@ -4,8 +4,7 @@ import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getReleaseMothsCalendarGames } from '@/actions/games.actions';
 import { User, fetchUsers } from '@/actions/user.actions';
-import { MonthsLinks } from '@/components/shared/MonthLinks';
-import { NewGamesList } from '@/components/shared/NewGamesList/NewGamesList';
+import { MonthsLinks, NewGamesList } from '@/components';
 import { generateUrlFromQuery } from '@/utils/methots';
 
 type Props = {

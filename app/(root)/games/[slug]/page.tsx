@@ -6,14 +6,9 @@ import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getGame, getGameScreenShots, getGameSeries, getGameAchievements } from '@/actions/games.actions';
 // import { User, fetchUsers } from '@/actions/user.actions';
-import { Background } from '@/components/Game/Background/Background';
-import { BuyButton } from '@/components/Game/BuyButton/BuyButton';
-import { GameDetailsTabs } from '@/components/Game/GameDetailsTabs/GameDetailsTabs';
+import { Background, BuyButton, GameDetailsTabs, Platforms, Screenshots, BackButton } from '@/components';
 // import { GameFavoriteButton } from '@/components/Game/GameFavoriteButton/GameFavoriteButton';
-import { Platforms } from '@/components/Game/Platforms/Platforms';
-import { Screenshots } from '@/components/Game/Screenshots';
 import 'react-photo-view/dist/react-photo-view.css';
-import { BackButton } from '@/components/shared/BackButton';
 
 type Props = {
   params: {

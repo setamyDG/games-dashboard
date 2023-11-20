@@ -3,7 +3,7 @@
 import { ListFilters } from './ListFilters/ListFilters';
 import { ListPagination } from './ListPagination/ListPagination';
 import { Props } from './NewGamesList.types';
-import { GameCard } from '@/components/Game/GameCard/GameCard';
+import { GameCard } from '@/components';
 
 export const NewGamesList = ({ games, user }: Props): JSX.Element => {
   const total = Math.floor(games?.count / 20);

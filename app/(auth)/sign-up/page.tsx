@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import SignUnForm from '@/components/forms/SignUpForm';
+import { SignUpForm } from '@/components';
 
 const SignUp = (): JSX.Element => (
   <div className='flex h-screen'>
@@ -14,7 +14,7 @@ const SignUp = (): JSX.Element => (
     </div>
     <div className='flex-1'>
       <div className='md:px-16 px-12 h-full flex flex-col gap-4 justify-center'>
-        <SignUnForm />
+        <SignUpForm />
       </div>
     </div>
   </div>

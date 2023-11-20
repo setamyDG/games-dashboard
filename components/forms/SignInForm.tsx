@@ -14,7 +14,7 @@ import * as z from 'zod';
 import { Form, FormField, FormItem, FormMessage } from '../ui/form';
 import { UserValidation } from '@/validations/user.form';
 
-const SignInForm = (): JSX.Element => {
+export const SignInForm = (): JSX.Element => {
   const [errorMessage, setErrorMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -151,5 +151,3 @@ const SignInForm = (): JSX.Element => {
     </>
   );
 };
-
-export default SignInForm;

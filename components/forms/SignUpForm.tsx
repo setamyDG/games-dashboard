@@ -23,7 +23,7 @@ import { Form, FormField, FormItem, FormMessage } from '../ui/form';
 import { checkIfUserExists, createUser } from '@/actions/user.actions';
 import { UserValidationCreate } from '@/validations/user.form';
 
-const SignUpForm = (): JSX.Element => {
+export const SignUpForm = (): JSX.Element => {
   const router = useRouter();
   const [errorMessage, setErrorMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -191,5 +191,3 @@ const SignUpForm = (): JSX.Element => {
     </>
   );
 };
-
-export default SignUpForm;

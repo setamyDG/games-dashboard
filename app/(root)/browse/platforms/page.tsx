@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getPlatforms } from '@/actions/platforms.actions';
-import { PlatformsList } from '@/components/shared/PlatformsList/PlatformsList';
+import { PlatformsList } from '@/components';
 
 const PlatformsPage = async () => {
   const platforms = await getPlatforms();

@@ -6,12 +6,9 @@ import { Tooltip } from '@nextui-org/tooltip';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FavoriteButton } from '../../shared/FavoriteButton/FavoriteButton';
-import { BuyButton } from '../BuyButton/BuyButton';
-import { NavigationButtonLink } from '../NavigationButtonLink/NavigationButtonLink';
-import { Platforms } from '../Platforms/Platforms';
 import { Props } from './GameCard.types';
 import { addFavoriteGame, removeFavoriteGame } from '@/actions/user.actions';
+import { BuyButton, FavoriteButton, NavigationButtonLink, Platforms } from '@/components';
 
 export const GameCard = ({ game, user }: Props): JSX.Element => {
   const [isFavorite, setIsFavorite] = useState<boolean>(
