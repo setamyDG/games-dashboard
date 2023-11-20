@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { SignUpForm } from '@/components';
+import { SignUpForm } from '@/components/forms/SignUpForm';
 
 const SignUp = (): JSX.Element => (
   <div className='flex h-screen'>

@@ -2,8 +2,8 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import { User } from '@/actions/user.actions';
-import { ChangeBackground } from '@/components';
-import { UserCollection } from '@/components/';
+import { ChangeBackground } from '@/components/ChangeBackground/ChangeBackground';
+import { UserCollection } from '@/components/UserCollection/UserCollection';
 import { baseUrl } from '@/lib/utils';
 
 const fetchUsers = async () => {

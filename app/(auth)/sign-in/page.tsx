@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { SignInForm } from '@/components';
+import { SignInForm } from '@/components/forms/SignInForm';
 
 const imgUrl = '/images/three3.jpeg';
 

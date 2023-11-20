@@ -1,7 +1,7 @@
 'use client';
 
 import { Props } from './PlatformsList.types';
-import { PlatformCard } from '@/components';
+import { PlatformCard } from '@/components/PlatformCard/PlatformCard';
 
 export const PlatformsList = ({ platforms }: Props): JSX.Element => {
   const filteredPlatforms = platforms?.results.filter(
