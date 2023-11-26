@@ -1,7 +1,7 @@
 'use server';
 
 import bcrypt from 'bcryptjs';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { Game } from '@/customTypes/general';
 import { connectToDb } from '@/lib/mongodb';
 import { baseUrl } from '@/lib/utils';
@@ -92,7 +92,7 @@ export const updateBackgroundImage = async (email: string, backgroundImage: stri
   try {
     await connectToDb();
     await User.findOneAndUpdate({ email }, { $set: { backgroundImage } }, { new: true });
-    revalidatePath('users');
+    await revalidateTag('users');
   } catch (error) {
     throw new Error('Error updating background image');
   }
