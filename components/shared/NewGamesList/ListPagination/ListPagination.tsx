@@ -3,6 +3,7 @@
 import { Pagination } from '@nextui-org/pagination';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
+import { createQueryString } from '@/utils/createQueryString';
 
 type Props = {
   total: number;
@@ -14,19 +15,13 @@ export const ListPagination = ({ total }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(String(searchParams));
-      params.set(name, value);
-
-      return params.toString();
+  const handlePaginationChange = useCallback(
+    (value: number): void => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      router.push(pathname + '?' + createQueryString(searchParams, 'page', `${value}`));
     },
-    [searchParams],
+    [router, pathname, searchParams],
   );
-
-  const handlePaginationChange = (value: number): void => {
-    router.push(pathname + '?' + createQueryString('page', `${value}`));
-  };
 
   return (
     <Pagination

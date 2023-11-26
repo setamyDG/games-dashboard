@@ -3,28 +3,23 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getReleaseMothsCalendarGames } from '@/actions/games.actions';
-import { User, fetchUsers } from '@/actions/user.actions';
+import { fetchUsers } from '@/actions/user.actions';
 import { MonthsLinks } from '@/components/shared/MonthLinks';
 import { NewGamesList } from '@/components/shared/NewGamesList/NewGamesList';
+import { SearchParams } from '@/customTypes/general';
 import { generateUrlFromQuery } from '@/utils/methots';
 
 type Props = {
-  searchParams: {
-    ordering?: string;
-    platforms?: string;
-    page?: string;
-    dates?: string;
-  };
   params: {
     value: string;
   };
 };
 
-const ReleaseCalendar = async ({ searchParams, params }: Props) => {
+const ReleaseCalendar = async ({ searchParams, params }: Props & SearchParams) => {
   const getUrl = generateUrlFromQuery(searchParams);
   const games = await getReleaseMothsCalendarGames(getUrl);
   const session = await getServerSession();
-  const users: User[] = await fetchUsers();
+  const users = await fetchUsers();
   const user = users.filter((user) => user.email === (session?.user?.email as string));
 
   if (!session) {

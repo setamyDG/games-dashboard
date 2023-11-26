@@ -5,8 +5,6 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getGame, getGameScreenShots, getGameSeries, getGameAchievements } from '@/actions/games.actions';
-// import { User, fetchUsers } from '@/actions/user.actions';
-// import { GameFavoriteButton } from '@/components/Game/GameFavoriteButton/GameFavoriteButton';
 import 'react-photo-view/dist/react-photo-view.css';
 import { Background } from '@/components/Game/Background/Background';
 import { BuyButton } from '@/components/Game/BuyButton/BuyButton';
@@ -35,9 +33,6 @@ const GamePage = async ({ params }: Props) => {
   const screenShots = await getGameScreenShots(slug);
   const gameSeries = await getGameSeries(slug);
   const gameAchievements = await getGameAchievements(slug);
-  // const users: User[] = await fetchUsers();
-
-  // const user = users.filter((user) => user.email === (session?.user?.email as string));
 
   if (!session) {
     redirect('/sign-in');

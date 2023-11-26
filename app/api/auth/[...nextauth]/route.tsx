@@ -39,6 +39,28 @@ const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  events: {
+    async signIn(message) {
+      /* on successful sign in */
+      const { user } = message;
+      if (user) {
+        connectToDb();
+        let existingUser = await User.findOne({ email: user.email });
+
+        if (!existingUser) {
+          existingUser = new User({ email: user.email, name: user.name, backgroundImage: user.image });
+        } else {
+          existingUser.favorites = existingUser.favorites || [];
+          existingUser.name = user.name || existingUser.name;
+          existingUser.backgroundImage =
+            'https://media.rawg.io/media/screenshots/c71/c718076de2326247d29ea5ed32e67c6c.jpg' || existingUser.picture;
+        }
+
+        await existingUser.save();
+      }
+    },
+    // other events...
+  },
   session: {
     strategy: 'jwt',
   },

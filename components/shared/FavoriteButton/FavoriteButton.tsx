@@ -17,35 +17,6 @@ export const FavoriteButton = ({
   handleAddToFavorites,
   handleRemoveFromFavorites,
 }: Props): JSX.Element => {
-  // const [isFavorite, setIsFavorite] = useState<boolean>(
-  //   user?.favorites?.some((favorite) => favorite.id === game.id) || false,
-  // );
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  // const handleAddToFavorites = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     await addFavoriteGame(user?.email as string, game);
-  //     setIsFavorite(true);
-  //   } catch (error) {
-  //     console.error('Error adding to favorites', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // const handleRemoveFromFavorites = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     await removeFavoriteGame(user?.email as string, game);
-  //     setIsFavorite(false);
-  //   } catch (error) {
-  //     console.error('Error removing from favorites:', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
   return (
     <Tooltip showArrow color='danger' content={isFavorite ? 'Unlike' : 'Like !'}>
       <Button

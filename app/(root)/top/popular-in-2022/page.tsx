@@ -2,23 +2,16 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { getPopular2022Games } from '@/actions/games.actions';
-import { User, fetchUsers } from '@/actions/user.actions';
+import { fetchUsers } from '@/actions/user.actions';
 import { NewGamesList } from '@/components/shared/NewGamesList/NewGamesList';
+import { SearchParams } from '@/customTypes/general';
 import { generateUrlFromQuery } from '@/utils/methots';
 
-type Props = {
-  searchParams: {
-    platforms?: string;
-    page?: string;
-    ordering?: string;
-  };
-};
-
-const PopularIn2022 = async ({ searchParams }: Props) => {
+const PopularIn2022 = async ({ searchParams }: SearchParams) => {
   const getUrl = generateUrlFromQuery(searchParams);
   const games = await getPopular2022Games(getUrl);
   const session = await getServerSession();
-  const users: User[] = await fetchUsers();
+  const users = await fetchUsers();
   const user = users.filter((user) => user.email === (session?.user?.email as string));
 
   if (!session) {

@@ -4,28 +4,21 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 import { getLast30daysGames } from '@/actions/games.actions';
-import { User, fetchUsers } from '@/actions/user.actions';
+import { fetchUsers } from '@/actions/user.actions';
 import { NewGamesList } from '@/components/shared/NewGamesList/NewGamesList';
+import { SearchParams } from '@/customTypes/general';
 import { generateUrlFromQuery } from '@/utils/methots';
-
-type Props = {
-  searchParams: {
-    ordering?: string;
-    platforms?: string;
-    page?: string;
-  };
-};
 
 export const metadata: Metadata = {
   title: 'Last 30 days',
   description: 'Best games from last 30 days',
 };
 
-const Last30Days = async ({ searchParams }: Props) => {
+const Last30Days = async ({ searchParams }: SearchParams) => {
   const getUrl = generateUrlFromQuery(searchParams);
   const games = await getLast30daysGames(getUrl);
   const session = await getServerSession();
-  const users: User[] = await fetchUsers();
+  const users = await fetchUsers();
   const user = users.filter((user) => user.email === (session?.user?.email as string));
 
   if (!session) {

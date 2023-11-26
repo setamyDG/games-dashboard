@@ -1,5 +1,3 @@
-'use client';
-
 import { ListFilters } from './ListFilters/ListFilters';
 import { ListPagination } from './ListPagination/ListPagination';
 import { Props } from './NewGamesList.types';

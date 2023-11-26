@@ -12,7 +12,7 @@ import { User, updateBackgroundImage } from '@/actions/user.actions';
 const defaultImage = 'https://media.rawg.io/media/screenshots/c71/c718076de2326247d29ea5ed32e67c6c.jpg';
 
 type Props = {
-  user?: User;
+  user: User;
 };
 export const ChangeBackground = ({ user }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);

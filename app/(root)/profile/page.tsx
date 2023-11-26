@@ -1,28 +1,13 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import React from 'react';
-import { User } from '@/actions/user.actions';
+import { fetchUsers } from '@/actions/user.actions';
 import { ChangeBackground } from '@/components/ChangeBackground/ChangeBackground';
 import { UserCollection } from '@/components/UserCollection/UserCollection';
-import { baseUrl } from '@/lib/utils';
-
-const fetchUsers = async () => {
-  const response = await fetch(`${baseUrl}/api/user`, {
-    next: {
-      tags: ['users'],
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error('Something went wrong');
-  }
-
-  return response.json();
-};
 
 const ProfilePage = async () => {
   const session = await getServerSession();
-  const users: User[] = await fetchUsers();
+  const users = await fetchUsers();
 
   if (!session) {
     redirect('/sign-in');

@@ -1,7 +1,7 @@
 'use server';
 
 import bcrypt from 'bcryptjs';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { Game } from '@/customTypes/general';
 import { connectToDb } from '@/lib/mongodb';
 import { baseUrl } from '@/lib/utils';
@@ -43,8 +43,6 @@ export const checkIfUserExists = async (email: string): Promise<boolean> => {
   } catch (error) {
     throw new Error('Error checking if user exists');
   }
-
-  return false;
 };
 
 export const addFavoriteGame = async (email: string, game: Game): Promise<void> => {
@@ -58,20 +56,10 @@ export const addFavoriteGame = async (email: string, game: Game): Promise<void> 
         },
       },
     );
-    revalidateTag('users');
+    revalidatePath('users');
   } catch (error) {
     throw new Error('Error adding favorite game');
   }
-};
-
-export const removeFavoriteGame = async (email: string, game: Game): Promise<void> => {
-  try {
-    await connectToDb();
-    await User.findOneAndUpdate({ email }, { $pull: { favorites: game } });
-  } catch (error) {
-    throw new Error('Error removing favorite game');
-  }
-  revalidateTag('users');
 };
 
 export type User = {
@@ -81,17 +69,36 @@ export type User = {
   backgroundImage: string;
 };
 
+export const removeFavoriteGame = async (email: string, game: Game): Promise<void> => {
+  try {
+    await connectToDb();
+    const user = await User.findOne({ email });
+    if (user) {
+      const gameIndex = user.favorites.findIndex(
+        (favoriteGame: Game) => favoriteGame?.id?.toString() === game?.id?.toString(),
+      );
+      if (gameIndex > -1) {
+        user.favorites.splice(gameIndex, 1);
+        await user.save();
+      }
+    }
+    revalidatePath('users');
+  } catch (error) {
+    throw new Error('Error removing favorite game');
+  }
+};
+
 export const updateBackgroundImage = async (email: string, backgroundImage: string): Promise<void> => {
   try {
     await connectToDb();
     await User.findOneAndUpdate({ email }, { $set: { backgroundImage } }, { new: true });
+    revalidatePath('users');
   } catch (error) {
     throw new Error('Error updating background image');
   }
-  revalidateTag('users');
 };
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (): Promise<User[]> => {
   const response = await fetch(`${baseUrl}/api/user`, {
     next: {
       tags: ['users'],
